@@ -35,7 +35,10 @@ const createRoom = async (req, res) => {
 // @access  Private
 const getAllRooms = async (req, res) => {
   try {
-    const rooms = await Room.find().sort({ roomNumber: 1 });
+    const rooms = await Room.find({ 
+      _id: { $exists: true },
+      roomNumber: { $exists: true, $ne: null }
+    }).sort({ roomNumber: 1 });
     res.json(rooms);
   } catch (error) {
     res.status(500).json({ message: error.message });

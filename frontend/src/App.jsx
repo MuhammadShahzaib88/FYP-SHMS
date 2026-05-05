@@ -20,6 +20,7 @@ import ApprovedStudents from './pages/admin/ApprovedStudents';
 import Students from './pages/admin/Students';
 import NoticeBoard from './pages/admin/NoticeBoard';
 import ComplaintsAdmin from './pages/admin/Complaints';
+import RoomChangeRequests from './pages/admin/RoomChangeRequests';
 
 // Student Pages
 import StudentDashboard from './pages/student/StudentDashboard';
@@ -27,6 +28,7 @@ import MyRoom from './pages/student/MyRoom';
 import Profile from './pages/student/Profile';
 import NoticeBoardStudent from './pages/student/NoticeBoard';
 import ComplaintsStudent from './pages/student/Complaints';
+import RoomChangeRequest from './pages/student/RoomChangeRequest';
 
 // Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -91,6 +93,7 @@ function App() {
             <Route path="rooms" element={<Rooms />} />
             <Route path="notices" element={<NoticeBoard />} />
             <Route path="complaints" element={<ComplaintsAdmin />} />
+            <Route path="room-change-requests" element={<RoomChangeRequests />} />
             <Route path="approved-students" element={<ApprovedStudents />} />
           </Route>
 
@@ -108,6 +111,7 @@ function App() {
             <Route path="complaints" element={<ComplaintsStudent />} />
             <Route path="my-room" element={<MyRoom />} />
             <Route path="profile" element={<Profile />} />
+            <Route path="room-change-request" element={<RoomChangeRequest />} />
           </Route>
         </Routes>
       </Router>

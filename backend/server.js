@@ -12,6 +12,15 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+// CORS configuration at the very top
+app.use(cors({
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.options('*', cors());
+
 const server = http.createServer(app);
 
 // Socket.io setup
@@ -41,20 +50,6 @@ io.on('connection', (socket) => {
   });
 });
 
-// CORS configuration - allow all localhost ports
-app.use(cors({
-  origin: function(origin, callback) {
-    if (!origin || origin.startsWith('http://localhost')) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -70,6 +65,9 @@ app.use('/api/notices', require('./routes/noticeRoutes'));
 const complaintRoutes = require('./routes/complaintRoutes');
 app.use('/api', complaintRoutes);
 app.use('/api/notifications', require('./routes/notificationRoutes'));
+
+// Room Change Request routes
+app.use('/api/room-change-requests', require('./routes/roomChangeRequestRoutes'));
 
 // Default route
 app.get('/', (req, res) => {
