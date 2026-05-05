@@ -81,9 +81,9 @@ const Students = () => {
     }
 
     const styles = {
-      pending: 'bg-yellow-100 text-yellow-800',
-      approved: 'bg-green-100 text-green-800',
-      rejected: 'bg-red-100 text-red-800'
+      pending: 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200',
+      approved: 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-200',
+      rejected: 'bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-200'
     };
     const icons = {
       pending: FaClock,
@@ -111,10 +111,10 @@ const Students = () => {
   if (error) {
     return (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold text-gray-800">Manage Students</h2>
-        <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">Manage Students</h2>
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-6 text-center transition-colors duration-300">
           <FaTimesCircle className="mx-auto text-4xl text-red-500 mb-4" />
-          <p className="text-red-600">{error}</p>
+          <p className="text-red-600 dark:text-red-300 transition-colors duration-300">{error}</p>
           <button 
             onClick={fetchStudents}
             className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
@@ -129,9 +129,9 @@ const Students = () => {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-gray-800">Manage Students</h2>
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">Manage Students</h2>
         <div className="flex items-center space-x-2">
-          <span className="text-gray-600">Total Students:</span>
+          <span className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Total Students:</span>
           <span className="px-3 py-1 bg-primary-100 text-primary-800 rounded-full font-semibold">
             {students.length}
           </span>
@@ -139,28 +139,28 @@ const Students = () => {
       </div>
 
       {students.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-md p-8 text-center">
+        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-8 text-center transition-colors duration-300">
           <FaUserGraduate className="mx-auto text-6xl text-gray-300 mb-4" />
-          <h3 className="text-xl font-semibold text-gray-700 mb-2">No Students Found</h3>
-          <p className="text-gray-500">There are no student accounts in the system yet.</p>
+          <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-2 transition-colors duration-300">No Students Found</h3>
+          <p className="text-gray-500 dark:text-gray-400 transition-colors duration-300">There are no student accounts in the system yet.</p>
         </div>
       ) : (
-        <div className="bg-white rounded-xl shadow-md overflow-hidden">
+        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md overflow-hidden transition-colors duration-300">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
                 <tr>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Student</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Email</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Room</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Status</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Joined Date</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Student</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Email</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Room</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Status</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Joined Date</th>
                   <th className="px-6 py-4 text-center text-sm font-semibold text-gray-700">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200">
+              <tbody className="divide-y divide-gray-200 dark:divide-gray-700 transition-colors duration-300">
                 {students.map((student) => (
-                  <tr key={student._id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={student._id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300">
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-3">
                         {student.photo ? (
@@ -176,10 +176,10 @@ const Students = () => {
                             </span>
                           </div>
                         )}
-                        <span className="font-medium text-gray-800">{student.name}</span>
+                        <div className="font-medium text-gray-800 dark:text-white transition-colors duration-300">{student.name}</div>
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-gray-600">{student.email}</td>
+                    <td className="px-6 py-4 text-gray-600 dark:text-gray-300 transition-colors duration-300">{student.email}</td>
                     <td className="px-6 py-4">
                       {student.roomNumber ? (
                         <span className="inline-flex items-center px-2 py-1 bg-blue-100 text-blue-800 rounded text-sm font-medium">
@@ -187,7 +187,7 @@ const Students = () => {
                           Room {student.roomNumber}
                         </span>
                       ) : (
-                        <span className="text-gray-400">-</span>
+                        <span className="text-gray-400 dark:text-gray-500 transition-colors duration-300">-</span>
                       )}
                     </td>
                     <td className="px-6 py-4">

@@ -92,9 +92,9 @@ const StudentApplications = () => {
 
   const getStatusBadge = (status) => {
     const styles = {
-      pending: 'bg-yellow-100 text-yellow-800',
-      approved: 'bg-green-100 text-green-800',
-      rejected: 'bg-red-100 text-red-800'
+      pending: 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200',
+      approved: 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-200',
+      rejected: 'bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-200'
     };
     return (
       <span className={`px-3 py-1 rounded-full text-sm font-medium ${styles[status]}`}>
@@ -114,7 +114,7 @@ const StudentApplications = () => {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <h2 className="text-2xl font-bold text-gray-800">Student Applications</h2>
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">Student Applications</h2>
         
         <div className="flex flex-col sm:flex-row gap-4">
           <div className="relative">
@@ -124,7 +124,7 @@ const StudentApplications = () => {
               placeholder="Search..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-gray-500 transition-colors duration-300"
             />
           </div>
           
@@ -133,7 +133,7 @@ const StudentApplications = () => {
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value)}
-              className="pl-10 pr-8 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none bg-white"
+              className="pl-10 pr-8 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none transition-colors duration-300"
             >
               <option value="all">All Status</option>
               <option value="pending">Pending</option>
@@ -144,31 +144,31 @@ const StudentApplications = () => {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-md overflow-hidden">
+      <div className="bg-white dark:bg-dark-card rounded-xl shadow-md overflow-hidden transition-colors duration-300">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50">
+            <thead className="bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
               <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Photo</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Name</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Email</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Father's Name</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Phone</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Department</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Status</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700">Actions</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Photo</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Name</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Email</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Father's Name</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Phone</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Department</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Status</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200">
+            <tbody className="divide-y divide-gray-200 dark:divide-gray-700 transition-colors duration-300">
               {filteredApplications.length === 0 ? (
                 <tr>
-                  <td colSpan="8" className="px-6 py-8 text-center text-gray-500">
+                  <td colSpan="8" className="px-6 py-8 text-center text-gray-500 dark:text-gray-400 transition-colors duration-300">
                     No applications found
                   </td>
                 </tr>
               ) : (
                 filteredApplications.map((application) => (
-                  <tr key={application._id} className="hover:bg-gray-50">
+                  <tr key={application._id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300">
                     <td className="px-6 py-4">
                       {application.photo ? (
                         <img
@@ -181,15 +181,15 @@ const StudentApplications = () => {
                       )}
                     </td>
                     <td className="px-6 py-4">
-                      <div className="font-medium text-gray-800">{application.name}</div>
-                      <div className="text-sm text-gray-500">{application.cnic}</div>
+                      <div className="font-medium text-gray-800 dark:text-white transition-colors duration-300">{application.name}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">{application.cnic}</div>
                     </td>
-                    <td className="px-6 py-4 text-gray-600">{application.email}</td>
-                    <td className="px-6 py-4 text-gray-600">{application.fatherName}</td>
-                    <td className="px-6 py-4 text-gray-600">{application.phone}</td>
+                    <td className="px-6 py-4 text-gray-600 dark:text-gray-300 transition-colors duration-300">{application.email}</td>
+                    <td className="px-6 py-4 text-gray-600 dark:text-gray-300 transition-colors duration-300">{application.fatherName}</td>
+                    <td className="px-6 py-4 text-gray-600 dark:text-gray-300 transition-colors duration-300">{application.phone}</td>
                     <td className="px-6 py-4">
-                      <div className="text-gray-600">{application.department}</div>
-                      <div className="text-sm text-gray-500">{application.semester} Semester</div>
+                      <div className="text-gray-600 dark:text-gray-300 transition-colors duration-300">{application.department}</div>
+                      <div className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">{application.semester} Semester</div>
                     </td>
                     <td className="px-6 py-4">
                       {getStatusBadge(application.status)}
@@ -239,20 +239,20 @@ const StudentApplications = () => {
       {/* Room Assignment Modal */}
       {showRoomModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Assign Room</h3>
-            <p className="text-gray-600 mb-4">
+          <div className="bg-white dark:bg-dark-card rounded-xl shadow-xl max-w-md w-full p-6 transition-colors duration-300">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4 transition-colors duration-300">Assign Room</h3>
+            <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-300">
               Select a room for <strong>{selectedApplication?.name}</strong>
             </p>
             
             <div className="space-y-4">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 transition-colors duration-300">
                 Available Rooms
               </label>
               <select
                 value={selectedRoom}
                 onChange={(e) => setSelectedRoom(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-300"
               >
                 <option value="">Select a room</option>
                 {rooms.map((room) => (
@@ -264,7 +264,7 @@ const StudentApplications = () => {
               </select>
               
               {rooms.length === 0 && (
-                <p className="text-red-600 text-sm">
+                <p className="text-red-600 dark:text-red-300 text-sm transition-colors duration-300">
                   No rooms available. Please create rooms first.
                 </p>
               )}
@@ -273,7 +273,7 @@ const StudentApplications = () => {
             <div className="flex space-x-4 mt-6">
               <button
                 onClick={() => setShowRoomModal(false)}
-                className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300"
               >
                 Cancel
               </button>

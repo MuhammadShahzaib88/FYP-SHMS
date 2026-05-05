@@ -78,6 +78,15 @@ export const complaintService = {
   updateComplaintStatus: (id, data) => api.put(`/admin/complaints/${id}`, data)
 };
 
+// Room Change Services
+export const roomChangeService = {
+  submitRequest: (data) => api.post('/room-change/request', data),
+  getMyRequests: () => api.get('/room-change/my'),
+  getAllRequests: (status) => api.get(`/admin/room-change-requests${status ? `?status=${status}` : ''}`),
+  approveRequest: (id) => api.put(`/admin/room-change/${id}/approve`),
+  rejectRequest: (id, rejectionComment) => api.put(`/admin/room-change/${id}/reject`, { rejectionComment })
+};
+
 // Notification Services
 export const notificationService = {
   getNotifications: () => api.get('/notifications'),
@@ -85,6 +94,12 @@ export const notificationService = {
   markAsRead: (id) => api.put(`/notifications/${id}/read`),
   markAllAsRead: () => api.put('/notifications/mark-all-read'),
   deleteNotification: (id) => api.delete(`/notifications/${id}`)
+};
+
+// AI Chat Services
+export const chatService = {
+  sendMessage: (message) => api.post('/chat', { message }),
+  clearHistory: () => api.delete('/chat/clear'),
 };
 
 export default api;

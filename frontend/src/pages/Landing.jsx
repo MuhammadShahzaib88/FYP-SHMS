@@ -12,89 +12,111 @@ import {
 
 const Landing = () => {
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-primary-600 to-primary-800 text-white py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
+      {/* Hero Section with Background Image */}
+      <section className="relative bg-gradient-to-r from-primary-600 to-primary-800 text-white py-32 overflow-hidden">
+        {/* Background Image with Overlay */}
+        <div 
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage: 'url("/FYP/SHMS/frontend/public/images/hostelimage6.png")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat'
+          }}
+          
+        >
+          {/* Dark Overlay - no blue */}
+          <div className="absolute inset-0 bg-black/40 dark:bg-black/60"></div>
+        </div>
+
+        {/* Content */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <h1 className="text-5xl font-bold mb-6">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 drop-shadow-lg">
               Smart Hostel Management System
             </h1>
-            <p className="text-xl mb-8 max-w-2xl mx-auto">
+            <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto drop-shadow-md">
               Experience comfortable living with modern amenities and seamless management. 
               Your home away from home.
             </p>
-            <div className="flex justify-center space-x-4">
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link 
                 to="/apply" 
-                className="px-8 py-3 bg-white text-primary-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+                className="px-8 py-4 bg-white text-primary-600 font-semibold rounded-lg hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg"
               >
                 Apply Now
               </Link>
               <Link 
                 to="/login" 
-                className="px-8 py-3 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary-600 transition-colors"
+                className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-primary-600 transition-all transform hover:scale-105"
               >
                 Login
               </Link>
             </div>
           </div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-gray-50 to-transparent"></div>
+
+        {/* Bottom Gradient Fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-gray-50 dark:from-dark-bg to-transparent z-10"></div>
+
+        {/* Decorative Elements */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
+        <div className="absolute bottom-20 right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-16 bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Why Choose Smart Hostel?</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-dark-text mb-4 transition-colors duration-300">Why Choose Smart Hostel?</h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto transition-colors duration-300">
               We provide the best living experience for students with modern facilities and 24/7 support.
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+            <div className="bg-white dark:bg-dark-card p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
               <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
                 <FaWifi className="text-primary-600 text-2xl" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">High-Speed WiFi</h3>
-              <p className="text-gray-600">24/7 high-speed internet access for all your study needs.</p>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">High-Speed WiFi</h3>
+              <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">24/7 high-speed internet access for all your study needs.</p>
             </div>
             
-            <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+            <div className="bg-white dark:bg-dark-card p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
               <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
                 <FaShieldAlt className="text-primary-600 text-2xl" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">24/7 Security</h3>
-              <p className="text-gray-600">Round-the-clock security with CCTV surveillance.</p>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">24/7 Security</h3>
+              <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Round-the-clock security with CCTV surveillance.</p>
             </div>
             
-            <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+            <div className="bg-white dark:bg-dark-card p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
               <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
                 <FaUtensils className="text-primary-600 text-2xl" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Mess Facility</h3>
-              <p className="text-gray-600">Nutritious meals with vegetarian and non-vegetarian options.</p>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">Mess Facility</h3>
+              <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Nutritious meals with vegetarian and non-vegetarian options.</p>
             </div>
             
-            <div className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+            <div className="bg-white dark:bg-dark-card p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
               <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
                 <FaBook className="text-primary-600 text-2xl" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">Study Rooms</h3>
-              <p className="text-gray-600">Dedicated quiet study spaces for focused learning.</p>
+              <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">Study Rooms</h3>
+              <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Dedicated quiet study spaces for focused learning.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Hostel Rules Section */}
-      <section id="about" className="py-16 bg-white">
+      <section id="about" className="py-16 bg-white dark:bg-dark-surface transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Hostel Rules & Regulations</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-dark-text mb-4 transition-colors duration-300">Hostel Rules & Regulations</h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto transition-colors duration-300">
               To ensure a safe and comfortable environment for all residents.
             </p>
           </div>
@@ -105,8 +127,8 @@ const Landing = () => {
                 <FaCheckCircle className="text-green-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">Gate Closing Time</h3>
-                <p className="text-gray-600">Main gate closes at 10:00 PM. Late entry requires prior permission.</p>
+                <h3 className="font-semibold text-gray-800 dark:text-dark-text transition-colors duration-300">Gate Closing Time</h3>
+                <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Main gate closes at 10:00 PM. Late entry requires prior permission.</p>
               </div>
             </div>
             
@@ -115,8 +137,8 @@ const Landing = () => {
                 <FaCheckCircle className="text-green-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">Visitor Policy</h3>
-                <p className="text-gray-600">Visitors allowed only in common areas during visiting hours (4 PM - 8 PM).</p>
+                <h3 className="font-semibold text-gray-800 dark:text-dark-text transition-colors duration-300">Visitor Policy</h3>
+                <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Visitors allowed only in common areas during visiting hours (4 PM - 8 PM).</p>
               </div>
             </div>
             
@@ -125,8 +147,8 @@ const Landing = () => {
                 <FaCheckCircle className="text-green-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">No Smoking/Alcohol</h3>
-                <p className="text-gray-600">Strictly prohibited within hostel premises. Violation leads to immediate termination.</p>
+                <h3 className="font-semibold text-gray-800 dark:text-dark-text transition-colors duration-300">No Smoking/Alcohol</h3>
+                <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Strictly prohibited within hostel premises. Violation leads to immediate termination.</p>
               </div>
             </div>
             
@@ -135,8 +157,8 @@ const Landing = () => {
                 <FaCheckCircle className="text-green-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">Room Maintenance</h3>
-                <p className="text-gray-600">Keep your room clean. Weekly inspections are conducted.</p>
+                <h3 className="font-semibold text-gray-800 dark:text-dark-text transition-colors duration-300">Room Maintenance</h3>
+                <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Keep your room clean. Weekly inspections are conducted.</p>
               </div>
             </div>
             
@@ -145,8 +167,8 @@ const Landing = () => {
                 <FaCheckCircle className="text-green-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">Electrical Appliances</h3>
-                <p className="text-gray-600">Only allowed appliances: laptop, mobile charger, and electric kettle.</p>
+                <h3 className="font-semibold text-gray-800 dark:text-dark-text transition-colors duration-300">Electrical Appliances</h3>
+                <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Only allowed appliances: laptop, mobile charger, and electric kettle.</p>
               </div>
             </div>
             
@@ -155,8 +177,8 @@ const Landing = () => {
                 <FaCheckCircle className="text-green-600" />
               </div>
               <div>
-                <h3 className="font-semibold text-gray-800">Noise Levels</h3>
-                <p className="text-gray-600">Maintain silence during study hours (9 PM - 6 AM).</p>
+                <h3 className="font-semibold text-gray-800 dark:text-dark-text transition-colors duration-300">Noise Levels</h3>
+                <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Maintain silence during study hours (9 PM - 6 AM).</p>
               </div>
             </div>
           </div>
@@ -164,24 +186,24 @@ const Landing = () => {
       </section>
 
       {/* Room Facilities Section */}
-      <section id="rooms" className="py-16 bg-gray-50">
+      <section id="rooms" className="py-16 bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-800 mb-4">Room Facilities</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-dark-text mb-4 transition-colors duration-300">Room Facilities</h2>
+            <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto transition-colors duration-300">
               Comfortable rooms equipped with all essential amenities.
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+            <div className="bg-white dark:bg-dark-card rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
               <div className="h-48 bg-primary-100 flex items-center justify-center">
                 <FaBed className="text-6xl text-primary-600" />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">2-Seater Room</h3>
-                <p className="text-gray-600 mb-4">Perfect for students who prefer more privacy.</p>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">2-Seater Room</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-300">Perfect for students who prefer more privacy.</p>
+                <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300">
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />2 Single Beds</li>
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />2 Study Tables</li>
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />2 Wardrobes</li>
@@ -190,14 +212,14 @@ const Landing = () => {
               </div>
             </div>
             
-            <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+            <div className="bg-white dark:bg-dark-card rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
               <div className="h-48 bg-primary-100 flex items-center justify-center">
                 <FaBed className="text-6xl text-primary-600" />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">3-Seater Room</h3>
-                <p className="text-gray-600 mb-4">Balanced option for comfort and affordability.</p>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">3-Seater Room</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-300">Balanced option for comfort and affordability.</p>
+                <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300">
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />3 Single Beds</li>
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />3 Study Tables</li>
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />3 Wardrobes</li>
@@ -206,14 +228,14 @@ const Landing = () => {
               </div>
             </div>
             
-            <div className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-shadow">
+            <div className="bg-white dark:bg-dark-card rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
               <div className="h-48 bg-primary-100 flex items-center justify-center">
                 <FaBed className="text-6xl text-primary-600" />
               </div>
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-gray-800 mb-2">4-Seater Room</h3>
-                <p className="text-gray-600 mb-4">Economical choice with shared facilities.</p>
-                <ul className="space-y-2 text-sm text-gray-600">
+                <h3 className="text-xl font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">4-Seater Room</h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-300">Economical choice with shared facilities.</p>
+                <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300">
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />4 Single Beds</li>
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />4 Study Tables</li>
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />4 Wardrobes</li>
@@ -226,12 +248,12 @@ const Landing = () => {
       </section>
 
       {/* Contact Form Section */}
-      <section id="contact" className="py-16 bg-white">
+      <section id="contact" className="py-16 bg-white dark:bg-dark-surface transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl mx-auto">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-800 mb-4">Contact Us</h2>
-              <p className="text-gray-600">
+              <h2 className="text-3xl font-bold text-gray-800 dark:text-dark-text mb-4 transition-colors duration-300">Contact Us</h2>
+              <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">
                 Have questions? Get in touch with us.
               </p>
             </div>
@@ -239,35 +261,35 @@ const Landing = () => {
             <form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-300">Name</label>
                   <input
                     type="text"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-300"
                     placeholder="Your name"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-300">Email</label>
                   <input
                     type="email"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-300"
                     placeholder="your@email.com"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-300">Subject</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-300"
                   placeholder="Message subject"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-300">Message</label>
                 <textarea
                   rows="4"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-300"
                   placeholder="Your message"
                 ></textarea>
               </div>
@@ -283,7 +305,7 @@ const Landing = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white py-12">
+      <footer className="bg-gray-800 dark:bg-gray-900 text-white py-12 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
@@ -294,7 +316,7 @@ const Landing = () => {
                 <span className="text-xl font-bold">Smart Hostel</span>
               </div>
               <p className="text-gray-400 text-sm">
-                Providing comfortable and secure accommodation for students since 2010.
+                Providing comfortable and secure accommodation for students.
               </p>
             </div>
             

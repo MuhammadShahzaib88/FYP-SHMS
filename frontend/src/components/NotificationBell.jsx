@@ -134,7 +134,7 @@ const NotificationBell = () => {
       {/* Bell Icon */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg"
+        className="relative p-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg transition-colors duration-300"
       >
         <FaBell className="text-xl" />
         
@@ -148,22 +148,22 @@ const NotificationBell = () => {
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-96 overflow-hidden">
+        <div className="absolute right-0 mt-2 w-80 bg-white dark:bg-dark-card rounded-lg shadow-lg border border-gray-200 dark:border-dark-border z-50 max-h-96 overflow-hidden transition-colors duration-300">
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-gray-200">
-            <h3 className="font-semibold text-gray-900">Notifications</h3>
+          <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-dark-border transition-colors duration-300">
+            <h3 className="font-semibold text-gray-900 dark:text-dark-text transition-colors duration-300">Notifications</h3>
             <div className="flex items-center space-x-2">
               {unreadCount > 0 && (
                 <button
                   onClick={handleMarkAllAsRead}
-                  className="text-sm text-blue-600 hover:text-blue-800"
+                  className="text-sm text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 transition-colors duration-300"
                 >
                   Mark all read
                 </button>
               )}
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-300 transition-colors duration-300"
               >
                 <FaTimes />
               </button>
@@ -173,23 +173,23 @@ const NotificationBell = () => {
           {/* Notifications List */}
           <div className="overflow-y-auto max-h-80">
             {notifications.length === 0 ? (
-              <div className="p-4 text-center text-gray-500">
+              <div className="p-4 text-center text-gray-500 dark:text-gray-400 transition-colors duration-300">
                 No notifications yet
               </div>
             ) : (
               notifications.map((notification) => (
                 <div
                   key={notification._id}
-                  className={`p-4 border-b border-gray-100 hover:bg-gray-50 cursor-pointer ${
-                    !notification.isRead ? 'bg-blue-50' : ''
+                  className={`p-4 border-b border-gray-100 dark:border-dark-border hover:bg-gray-50 dark:hover:bg-dark-hover cursor-pointer transition-colors duration-300 ${
+                    !notification.isRead ? 'bg-blue-50 dark:bg-blue-900/20' : ''
                   }`}
                   onClick={() => handleMarkAsRead(notification._id)}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-1">
-                        <h4 className={`text-sm font-medium ${
-                          !notification.isRead ? 'text-blue-900' : 'text-gray-900'
+                        <h4 className={`text-sm font-medium transition-colors duration-300 ${
+                          !notification.isRead ? 'text-blue-900 dark:text-blue-100' : 'text-gray-900 dark:text-dark-text'
                         }`}>
                           {notification.title}
                         </h4>
@@ -198,13 +198,13 @@ const NotificationBell = () => {
                             e.stopPropagation();
                             handleDeleteNotification(notification._id);
                           }}
-                          className="text-gray-400 hover:text-red-500 ml-2"
+                          className="text-gray-400 hover:text-red-500 dark:text-gray-500 dark:hover:text-red-400 ml-2 transition-colors duration-300"
                         >
                           <FaTimes className="text-xs" />
                         </button>
                       </div>
-                      <p className="text-sm text-gray-600 mb-1">{notification.message}</p>
-                      <p className="text-xs text-gray-400">{formatDate(notification.createdAt)}</p>
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-1 transition-colors duration-300">{notification.message}</p>
+                      <p className="text-xs text-gray-400 dark:text-gray-500 transition-colors duration-300">{formatDate(notification.createdAt)}</p>
                     </div>
                     {!notification.isRead && (
                       <div className="w-2 h-2 bg-blue-500 rounded-full ml-2 mt-2"></div>

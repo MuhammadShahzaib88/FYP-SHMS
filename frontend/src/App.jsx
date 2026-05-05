@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { AuthProvider } from './contexts/AuthContext';
+import { ThemeProvider } from './contexts/ThemeContext';
+import AIChatWidget from './components/AIChatWidget';
 
 // Layouts
 import MainLayout from './layouts/MainLayout';
@@ -28,7 +30,7 @@ import MyRoom from './pages/student/MyRoom';
 import Profile from './pages/student/Profile';
 import NoticeBoardStudent from './pages/student/NoticeBoard';
 import ComplaintsStudent from './pages/student/Complaints';
-import RoomChangeRequest from './pages/student/RoomChangeRequest';
+import RoomChange from './pages/student/RoomChange';
 
 // Protected Route Component
 const ProtectedRoute = ({ children, allowedRoles }) => {
@@ -68,54 +70,57 @@ function App() {
   };
 
   return (
-    <AuthProvider>
-      <Router>
-        <Routes>
-          {/* Public Routes */}
-          <Route path="/" element={<MainLayout user={user} onLogout={handleLogout} />}>
-            <Route index element={<Landing />} />
-            <Route path="login" element={<Login onLogin={handleLogin} />} />
-            <Route path="apply" element={<Apply />} />
-          </Route>
+    <ThemeProvider>
+      <AuthProvider>
+        <Router>
+          <Routes>
+            {/* Public Routes */}
+            <Route path="/" element={<MainLayout user={user} onLogout={handleLogout} />}>
+              <Route index element={<Landing />} />
+              <Route path="login" element={<Login onLogin={handleLogin} />} />
+              <Route path="apply" element={<Apply />} />
+            </Route>
 
-          {/* Admin Routes */}
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoute allowedRoles={['admin']}>
-                <AdminLayout onLogout={handleLogout} />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<AdminDashboard />} />
-            <Route path="applications" element={<StudentApplications />} />
-            <Route path="students" element={<Students />} />
-            <Route path="rooms" element={<Rooms />} />
-            <Route path="notices" element={<NoticeBoard />} />
-            <Route path="complaints" element={<ComplaintsAdmin />} />
-            <Route path="room-change-requests" element={<RoomChangeRequests />} />
-            <Route path="approved-students" element={<ApprovedStudents />} />
-          </Route>
+            {/* Admin Routes */}
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoute allowedRoles={['admin']}>
+                  <AdminLayout onLogout={handleLogout} />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<AdminDashboard />} />
+              <Route path="applications" element={<StudentApplications />} />
+              <Route path="students" element={<Students />} />
+              <Route path="rooms" element={<Rooms />} />
+              <Route path="notices" element={<NoticeBoard />} />
+              <Route path="complaints" element={<ComplaintsAdmin />} />
+              <Route path="approved-students" element={<ApprovedStudents />} />
+              <Route path="room-change-requests" element={<RoomChangeRequests />} />
+            </Route>
 
-          {/* Student Routes */}
-          <Route
-            path="/student"
-            element={
-              <ProtectedRoute allowedRoles={['student']}>
-                <StudentLayout onLogout={handleLogout} />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<StudentDashboard />} />
-            <Route path="notices" element={<NoticeBoardStudent />} />
-            <Route path="complaints" element={<ComplaintsStudent />} />
-            <Route path="my-room" element={<MyRoom />} />
-            <Route path="profile" element={<Profile />} />
-            <Route path="room-change-request" element={<RoomChangeRequest />} />
-          </Route>
-        </Routes>
-      </Router>
-    </AuthProvider>
+            {/* Student Routes */}
+            <Route
+              path="/student"
+              element={
+                <ProtectedRoute allowedRoles={['student']}>
+                  <StudentLayout onLogout={handleLogout} />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<StudentDashboard />} />
+              <Route path="notices" element={<NoticeBoardStudent />} />
+              <Route path="complaints" element={<ComplaintsStudent />} />
+              <Route path="my-room" element={<MyRoom />} />
+              <Route path="profile" element={<Profile />} />
+              <Route path="room-change" element={<RoomChange />} />
+            </Route>
+          </Routes>
+          <AIChatWidget />
+        </Router>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 

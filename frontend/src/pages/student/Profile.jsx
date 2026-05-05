@@ -51,7 +51,7 @@ const Profile = () => {
     // Handle undefined/null status
     if (!status) {
       return (
-        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 transition-colors duration-300">
           <FaClock className="mr-1" />
           Unknown
         </span>
@@ -59,9 +59,9 @@ const Profile = () => {
     }
     
     const styles = {
-      pending: 'bg-yellow-100 text-yellow-800',
-      approved: 'bg-green-100 text-green-800',
-      rejected: 'bg-red-100 text-red-800'
+      pending: 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200',
+      approved: 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-200',
+      rejected: 'bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-200'
     };
     const icons = {
       pending: FaClock,
@@ -89,11 +89,11 @@ const Profile = () => {
   if (error) {
     return (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold text-gray-800">My Profile</h2>
-        <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">My Profile</h2>
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-6 text-center transition-colors duration-300">
           <FaTimesCircle className="mx-auto text-4xl text-red-500 mb-4" />
-          <h3 className="text-lg font-semibold text-red-800 mb-2">Error Loading Profile</h3>
-          <p className="text-red-600 mb-4">{error}</p>
+          <h3 className="text-lg font-semibold text-red-800 dark:text-red-200 mb-2 transition-colors duration-300">Error Loading Profile</h3>
+          <p className="text-red-600 dark:text-red-300 mb-4 transition-colors duration-300">{error}</p>
           <button 
             onClick={fetchProfile}
             className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
@@ -108,11 +108,11 @@ const Profile = () => {
   if (!profile || !profile.application) {
     return (
       <div className="space-y-6">
-        <h2 className="text-2xl font-bold text-gray-800">My Profile</h2>
-        <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6 text-center">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">My Profile</h2>
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-xl p-6 text-center transition-colors duration-300">
           <FaClock className="mx-auto text-4xl text-yellow-500 mb-4" />
-          <h3 className="text-lg font-semibold text-yellow-800 mb-2">No Profile Data</h3>
-          <p className="text-yellow-600">Please submit a hostel application to view your profile.</p>
+          <h3 className="text-lg font-semibold text-yellow-800 dark:text-yellow-200 mb-2 transition-colors duration-300">No Profile Data</h3>
+          <p className="text-yellow-600 dark:text-yellow-300 transition-colors duration-300">Please submit a hostel application to view your profile.</p>
         </div>
       </div>
     );
@@ -120,10 +120,10 @@ const Profile = () => {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-800">My Profile</h2>
+      <h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">My Profile</h2>
 
       {/* User Info Card */}
-      <div className="bg-white rounded-xl shadow-md overflow-hidden">
+      <div className="bg-white dark:bg-dark-card rounded-xl shadow-md overflow-hidden transition-colors duration-300">
         <div className="bg-gradient-to-r from-primary-600 to-primary-800 p-6 text-white">
           <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
             {profile?.application?.photo ? (
@@ -153,7 +153,7 @@ const Profile = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Personal Information */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-gray-800 pb-2 border-b border-gray-200">
+              <h4 className="text-lg font-semibold text-gray-800 dark:text-white pb-2 border-b border-gray-200 dark:border-dark-border transition-colors duration-300">
                 Personal Information
               </h4>
 
@@ -162,8 +162,8 @@ const Profile = () => {
                   <FaUser className="text-primary-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Full Name</p>
-                  <p className="font-medium text-gray-800">{profile?.application?.name}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Full Name</p>
+                  <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">{profile?.application?.name}</p>
                 </div>
               </div>
 
@@ -172,8 +172,8 @@ const Profile = () => {
                   <FaEnvelope className="text-primary-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Email Address</p>
-                  <p className="font-medium text-gray-800">{profile?.application?.email}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Email Address</p>
+                  <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">{profile?.application?.email}</p>
                 </div>
               </div>
 
@@ -182,8 +182,8 @@ const Profile = () => {
                   <FaPhone className="text-primary-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Phone Number</p>
-                  <p className="font-medium text-gray-800">{profile?.application?.phone}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Phone Number</p>
+                  <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">{profile?.application?.phone}</p>
                 </div>
               </div>
 
@@ -192,8 +192,8 @@ const Profile = () => {
                   <FaIdCard className="text-primary-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">CNIC Number</p>
-                  <p className="font-medium text-gray-800">{profile?.application?.cnic}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">CNIC Number</p>
+                  <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">{profile?.application?.cnic}</p>
                 </div>
               </div>
 
@@ -202,15 +202,15 @@ const Profile = () => {
                   <FaMapMarkerAlt className="text-primary-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Address</p>
-                  <p className="font-medium text-gray-800">{profile?.application?.address}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Address</p>
+                  <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">{profile?.application?.address}</p>
                 </div>
               </div>
             </div>
 
             {/* Academic & Guardian Information */}
             <div className="space-y-4">
-              <h4 className="text-lg font-semibold text-gray-800 pb-2 border-b border-gray-200">
+              <h4 className="text-lg font-semibold text-gray-800 dark:text-white pb-2 border-b border-gray-200 dark:border-dark-border transition-colors duration-300">
                 Academic Information
               </h4>
 
@@ -219,8 +219,8 @@ const Profile = () => {
                   <FaBuilding className="text-purple-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Department</p>
-                  <p className="font-medium text-gray-800">{profile?.application?.department}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Department</p>
+                  <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">{profile?.application?.department}</p>
                 </div>
               </div>
 
@@ -229,8 +229,8 @@ const Profile = () => {
                   <FaGraduationCap className="text-purple-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Semester</p>
-                  <p className="font-medium text-gray-800">{profile?.application?.semester} Semester</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Semester</p>
+                  <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">{profile?.application?.semester} Semester</p>
                 </div>
               </div>
 
@@ -243,8 +243,8 @@ const Profile = () => {
                   <FaUserTie className="text-green-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Father's Name</p>
-                  <p className="font-medium text-gray-800">{profile?.application?.fatherName}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Father's Name</p>
+                  <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">{profile?.application?.fatherName}</p>
                 </div>
               </div>
 
@@ -253,8 +253,8 @@ const Profile = () => {
                   <FaEnvelope className="text-green-600" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Guardian Email</p>
-                  <p className="font-medium text-gray-800">{profile?.application?.guardianEmail}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Guardian Email</p>
+                  <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">{profile?.application?.guardianEmail}</p>
                 </div>
               </div>
             </div>
@@ -264,7 +264,7 @@ const Profile = () => {
 
       {/* Room Information */}
       {profile?.application?.status === 'approved' && profile?.application?.room && (
-        <div className="bg-white rounded-xl shadow-md p-6">
+        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 transition-colors duration-300">
           <h4 className="text-lg font-semibold text-gray-800 pb-2 border-b border-gray-200 mb-4">
             Room Assignment
           </h4>
@@ -272,15 +272,15 @@ const Profile = () => {
             <div className="flex items-center space-x-3 p-4 bg-primary-50 rounded-lg">
               <FaBed className="text-primary-600 text-xl" />
               <div>
-                <p className="text-sm text-gray-500">Room Number</p>
-                <p className="font-semibold text-gray-800">{profile?.application?.room?.roomNumber}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Room Number</p>
+                <p className="font-semibold text-gray-800 dark:text-white transition-colors duration-300">{profile?.application?.room?.roomNumber}</p>
               </div>
             </div>
             <div className="flex items-center space-x-3 p-4 bg-primary-50 rounded-lg">
               <FaBuilding className="text-primary-600 text-xl" />
               <div>
-                <p className="text-sm text-gray-500">Hostel Block</p>
-                <p className="font-semibold text-gray-800">{profile?.application?.room?.hostelBlock}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Hostel Block</p>
+                <p className="font-semibold text-gray-800 dark:text-white transition-colors duration-300">{profile?.application?.room?.hostelBlock}</p>
               </div>
             </div>
             <div className="flex items-center space-x-3 p-4 bg-primary-50 rounded-lg">
@@ -288,15 +288,15 @@ const Profile = () => {
                 <span className="text-primary-600 text-xs font-bold">F</span>
               </div>
               <div>
-                <p className="text-sm text-gray-500">Floor</p>
-                <p className="font-semibold text-gray-800">{profile?.application?.room?.floor}</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Floor</p>
+                <p className="font-semibold text-gray-800 dark:text-white transition-colors duration-300">{profile?.application?.room?.floor}</p>
               </div>
             </div>
             <div className="flex items-center space-x-3 p-4 bg-primary-50 rounded-lg">
               <FaUser className="text-primary-600 text-xl" />
               <div>
-                <p className="text-sm text-gray-500">Occupancy</p>
-                <p className="font-semibold text-gray-800">
+                <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Occupancy</p>
+                <p className="font-semibold text-gray-800 dark:text-white transition-colors duration-300">
                   {profile?.application?.room?.occupiedBeds} / {profile?.application?.room?.capacity}
                 </p>
               </div>
@@ -306,7 +306,7 @@ const Profile = () => {
       )}
 
       {/* Application Timeline */}
-      <div className="bg-white rounded-xl shadow-md p-6">
+      <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 transition-colors duration-300">
         <h4 className="text-lg font-semibold text-gray-800 pb-2 border-b border-gray-200 mb-4">
           Application Timeline
         </h4>
@@ -316,8 +316,8 @@ const Profile = () => {
               <FaClock className="text-blue-600" />
             </div>
             <div>
-              <p className="font-medium text-gray-800">Application Submitted</p>
-              <p className="text-sm text-gray-500">
+              <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">Application Submitted</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">
                 {new Date(profile?.application?.createdAt).toLocaleDateString()} at{' '}
                 {new Date(profile?.application?.createdAt).toLocaleTimeString()}
               </p>
@@ -336,10 +336,10 @@ const Profile = () => {
                 )}
               </div>
               <div>
-                <p className="font-medium text-gray-800">
+                <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">
                   Application {profile?.application?.status === 'approved' ? 'Approved' : 'Rejected'}
                 </p>
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">
                   {new Date(profile?.application?.updatedAt).toLocaleDateString()} at{' '}
                   {new Date(profile?.application?.updatedAt).toLocaleTimeString()}
                 </p>

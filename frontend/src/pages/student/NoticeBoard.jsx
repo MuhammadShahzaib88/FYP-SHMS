@@ -41,9 +41,9 @@ const NoticeBoard = () => {
 
   const getPriorityBadge = (priority) => {
     const styles = {
-      normal: 'bg-blue-100 text-blue-800 border-blue-200',
-      important: 'bg-orange-100 text-orange-800 border-orange-200',
-      urgent: 'bg-red-100 text-red-800 border-red-200'
+      normal: 'bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200 border-blue-200 dark:border-blue-800',
+      important: 'bg-orange-100 dark:bg-orange-900/20 text-orange-800 dark:text-orange-200 border-orange-200 dark:border-orange-800',
+      urgent: 'bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-200 border-red-200 dark:border-red-800'
     };
     const icons = {
       normal: FaInfoCircle,
@@ -62,9 +62,9 @@ const NoticeBoard = () => {
 
   const getPriorityColor = (priority) => {
     const colors = {
-      normal: 'border-blue-200 bg-blue-50',
-      important: 'border-orange-200 bg-orange-50',
-      urgent: 'border-red-200 bg-red-50'
+      normal: 'border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-900/20',
+      important: 'border-orange-200 dark:border-orange-800 bg-orange-50 dark:bg-orange-900/20',
+      urgent: 'border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20'
     };
     return colors[priority] || colors.normal;
   };
@@ -101,17 +101,17 @@ const NoticeBoard = () => {
             )}
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-gray-800">Notice Board</h2>
-            <p className="text-gray-600 mt-1">Stay updated with latest announcements</p>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">Notice Board</h2>
+            <p className="text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">Stay updated with latest announcements</p>
           </div>
         </div>
         
         <div className="flex items-center space-x-2">
-          <span className="text-sm text-gray-500">
+          <span className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">
             {notices.length} {notices.length === 1 ? 'notice' : 'notices'}
           </span>
           {getUnreadCount() > 0 && (
-            <span className="px-2 py-1 bg-red-100 text-red-800 rounded-full text-xs font-medium">
+            <span className="px-2 py-1 bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-200 rounded-full text-xs font-medium transition-colors duration-300">
               {getUnreadCount()} new
             </span>
           )}
@@ -120,21 +120,21 @@ const NoticeBoard = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl shadow-md p-4">
+        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-4 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">Total Notices</p>
-              <p className="text-2xl font-bold text-gray-800">{notices.length}</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Total Notices</p>
+              <p className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">{notices.length}</p>
             </div>
             <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
               <FaBullhorn className="text-blue-600" />
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl shadow-md p-4">
+        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-4 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">Important</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Important</p>
               <p className="text-2xl font-bold text-orange-600">{notices.filter(n => n.priority === 'important').length}</p>
             </div>
             <div className="w-10 h-10 bg-orange-100 rounded-lg flex items-center justify-center">
@@ -142,10 +142,10 @@ const NoticeBoard = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl shadow-md p-4">
+        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-4 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">Urgent</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Urgent</p>
               <p className="text-2xl font-bold text-red-600">{notices.filter(n => n.priority === 'urgent').length}</p>
             </div>
             <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
@@ -158,18 +158,18 @@ const NoticeBoard = () => {
       {/* Notices List */}
       <div className="space-y-4">
         {notices.length === 0 ? (
-          <div className="text-center py-12 bg-white rounded-xl shadow-md">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <FaBullhorn className="text-gray-400 text-2xl" />
+          <div className="text-center py-12 bg-white dark:bg-dark-card rounded-xl shadow-md transition-colors duration-300">
+            <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors duration-300">
+              <FaBullhorn className="text-gray-400 dark:text-gray-500 text-2xl transition-colors duration-300" />
             </div>
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">No Notices Available</h3>
-            <p className="text-gray-500">Check back later for new announcements</p>
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2 transition-colors duration-300">No Notices Available</h3>
+            <p className="text-gray-500 dark:text-gray-400 transition-colors duration-300">Check back later for new announcements</p>
           </div>
         ) : (
           notices.map((notice) => (
             <div 
               key={notice._id} 
-              className={`bg-white rounded-xl shadow-md overflow-hidden border-l-4 ${getPriorityColor(notice.priority)} ${
+              className={`bg-white dark:bg-dark-card rounded-xl shadow-md overflow-hidden border-l-4 ${getPriorityColor(notice.priority)} transition-colors duration-300 ${
                 isNewNotice(notice) ? 'ring-2 ring-primary-200' : ''
               }`}
             >
@@ -180,16 +180,16 @@ const NoticeBoard = () => {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-2">
-                      <h3 className="text-lg font-semibold text-gray-800">{notice.title}</h3>
+                      <h3 className="text-lg font-semibold text-gray-800 dark:text-white transition-colors duration-300">{notice.title}</h3>
                       {getPriorityBadge(notice.priority)}
                       {isNewNotice(notice) && (
-                        <span className="px-2 py-1 bg-primary-100 text-primary-800 rounded-full text-xs font-medium animate-pulse">
+                        <span className="px-2 py-1 bg-primary-100 dark:bg-primary-900/20 text-primary-800 dark:text-primary-200 rounded-full text-xs font-medium animate-pulse transition-colors duration-300">
                           NEW
                         </span>
                       )}
                     </div>
-                    <p className="text-gray-600 whitespace-pre-wrap mb-4">{notice.content}</p>
-                    <div className="flex items-center text-sm text-gray-500 space-x-4">
+                    <p className="text-gray-600 dark:text-gray-300 whitespace-pre-wrap mb-4 transition-colors duration-300">{notice.content}</p>
+                    <div className="flex items-center text-sm text-gray-500 dark:text-gray-400 space-x-4 transition-colors duration-300">
                       <div className="flex items-center space-x-1">
                         <FaUser className="text-xs" />
                         <span>{notice.createdBy?.name || 'Admin'}</span>
@@ -213,7 +213,7 @@ const NoticeBoard = () => {
       {/* Empty State for Unread */}
       {getUnreadCount() === 0 && notices.length > 0 && (
         <div className="text-center py-4">
-          <p className="text-sm text-gray-500">You're all caught up! No new notices.</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">You're all caught up! No new notices.</p>
         </div>
       )}
     </div>

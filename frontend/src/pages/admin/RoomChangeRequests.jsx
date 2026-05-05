@@ -1,339 +1,282 @@
-import React, { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
-import api from '../../services/api';
+import { useEffect, useMemo, useState } from 'react';
+import { FaCheck, FaSpinner, FaTimes, FaFilter, FaSearch } from 'react-icons/fa';
+import { roomChangeService } from '../../services/api';
 
 const RoomChangeRequests = () => {
   const [requests, setRequests] = useState([]);
-  const [stats, setStats] = useState({ total: 0, pending: 0, approved: 0, rejected: 0 });
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [commentInput, setCommentInput] = useState({});
-  const [processing, setProcessing] = useState({});
-  const [rejectMode, setRejectMode] = useState({}); // Track which request is in reject mode
+  const [processingId, setProcessingId] = useState(null);
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [search, setSearch] = useState('');
+  const [selectedRequest, setSelectedRequest] = useState(null);
+  const [rejectionComment, setRejectionComment] = useState('');
+  const [showRejectModal, setShowRejectModal] = useState(false);
 
   useEffect(() => {
     fetchRequests();
-  }, []);
+  }, [statusFilter]);
 
   const fetchRequests = async () => {
     try {
-      console.log('Fetching room change requests...');
-      const response = await api.get('/room-change-requests');
-      console.log('API Response:', response.data);
-      
-      // Ensure requests is always an array
-      const requestsData = Array.isArray(response.data) ? response.data : response.data.requests || [];
-      console.log('Requests data:', requestsData);
-      
-      setRequests(requestsData);
-      setStats(response.data.stats || { total: 0, pending: 0, approved: 0, rejected: 0 });
-      setError(null);
+      setLoading(true);
+      const response = await roomChangeService.getAllRequests(statusFilter === 'all' ? '' : statusFilter);
+      setRequests(response.data);
     } catch (error) {
-      console.error('Error fetching requests:', error);
-      setError(error.message || 'Failed to fetch room change requests');
-      toast.error('Failed to fetch room change requests');
-      setRequests([]);
-      setStats({ total: 0, pending: 0, approved: 0, rejected: 0 });
+      console.error('Error fetching room change requests:', error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleApprove = async (requestId) => {
-    setProcessing(prev => ({ ...prev, [requestId]: 'approve' }));
-    
-    try {
-      const response = await api.patch(`/room-change-requests/${requestId}/approve`);
-      toast.success('Room changed successfully');
-      fetchRequests(); // Refresh the list
-    } catch (error) {
-      console.error('Error approving request:', error);
-      toast.error(error.response?.data?.message || 'Failed to approve request');
-    } finally {
-      setProcessing(prev => ({ ...prev, [requestId]: null }));
-    }
-  };
+  const filteredRequests = useMemo(() => {
+    return requests.filter((request) => {
+      const name = request.studentId?.name || '';
+      const email = request.studentId?.email || '';
+      const currentRoom = request.currentRoomId?.roomNumber || '';
+      const preferredRoom = request.preferredRoomId?.roomNumber || '';
+      const searchText = search.toLowerCase();
 
-  const handleReject = async (requestId) => {
-    const comment = commentInput[requestId];
-    if (!comment || !comment.trim()) {
-      toast.error('Please provide a reason for rejection');
+      return (
+        name.toLowerCase().includes(searchText) ||
+        email.toLowerCase().includes(searchText) ||
+        currentRoom.toLowerCase().includes(searchText) ||
+        preferredRoom.toLowerCase().includes(searchText)
+      );
+    });
+  }, [requests, search]);
+
+  const handleApprove = async (requestId) => {
+    if (!window.confirm('Approve this room change request?')) {
       return;
     }
 
-    setProcessing(prev => ({ ...prev, [requestId]: 'reject' }));
-    
     try {
-      const response = await api.patch(`/room-change-requests/${requestId}/reject`, {
-        adminComment: comment.trim()
-      });
-      toast.success('Request rejected successfully');
-      
-      // Clear comment input and reject mode
-      setCommentInput(prev => ({ ...prev, [requestId]: '' }));
-      setRejectMode(prev => ({ ...prev, [requestId]: false }));
-      fetchRequests(); // Refresh the list
+      setProcessingId(requestId);
+      await roomChangeService.approveRequest(requestId);
+      fetchRequests();
     } catch (error) {
-      console.error('Error rejecting request:', error);
-      toast.error(error.response?.data?.message || 'Failed to reject request');
+      console.error('Error approving room change request:', error);
+      alert(error.response?.data?.message || 'Failed to approve request');
     } finally {
-      setProcessing(prev => ({ ...prev, [requestId]: null }));
+      setProcessingId(null);
     }
   };
 
-  const toggleRejectMode = (requestId) => {
-    setRejectMode(prev => ({
-      ...prev,
-      [requestId]: !prev[requestId]
-    }));
-    // Clear comment input when exiting reject mode
-    if (rejectMode[requestId]) {
-      setCommentInput(prev => ({ ...prev, [requestId]: '' }));
+  const openRejectModal = (request) => {
+    setSelectedRequest(request);
+    setRejectionComment('');
+    setShowRejectModal(true);
+  };
+
+  const handleReject = async () => {
+    if (!selectedRequest) {
+      return;
+    }
+
+    if (rejectionComment.trim().length < 5) {
+      alert('Please enter rejection comment with at least 5 characters.');
+      return;
+    }
+
+    try {
+      setProcessingId(selectedRequest._id);
+      await roomChangeService.rejectRequest(selectedRequest._id, rejectionComment);
+      setShowRejectModal(false);
+      setSelectedRequest(null);
+      setRejectionComment('');
+      fetchRequests();
+    } catch (error) {
+      console.error('Error rejecting room change request:', error);
+      alert(error.response?.data?.message || 'Failed to reject request');
+    } finally {
+      setProcessingId(null);
     }
   };
 
   const getStatusBadge = (status) => {
     const styles = {
-      pending: 'bg-yellow-100 text-yellow-800',
-      approved: 'bg-green-100 text-green-800',
-      rejected: 'bg-red-100 text-red-800'
+      pending: 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200',
+      approved: 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-200',
+      rejected: 'bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-200'
     };
-    
+
     return (
-      <span className={`px-2 py-1 rounded-full text-xs font-medium ${styles[status]}`}>
+      <span className={`px-3 py-1 rounded-full text-xs font-medium ${styles[status] || 'bg-gray-100 text-gray-700'}`}>
         {status.charAt(0).toUpperCase() + status.slice(1)}
       </span>
     );
   };
 
-  const isRoomFull = (room) => {
-    return room.occupiedBeds >= room.capacity;
-  };
-
-  const canApprove = (request) => {
-    return request.status === 'pending' && !isRoomFull(request.requestedRoom);
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
   };
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="text-center">
-          <div className="text-red-600 text-xl font-semibold mb-2">Error Loading Data</div>
-          <div className="text-gray-600">{error}</div>
-          <button 
-            onClick={fetchRequests}
-            className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-          >
-            Retry
-          </button>
-        </div>
+      <div className="flex items-center justify-center h-64">
+        <FaSpinner className="animate-spin text-4xl text-primary-600" />
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold text-gray-800 mb-8">Room Change Requests</h1>
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">Room Change Requests</h2>
 
-      {/* Statistics Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="text-2xl font-bold text-gray-900">{stats.total}</div>
-          <div className="text-sm text-gray-500">Total Requests</div>
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="text-2xl font-bold text-yellow-600">{stats.pending}</div>
-          <div className="text-sm text-gray-500">Pending</div>
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="text-2xl font-bold text-green-600">{stats.approved}</div>
-          <div className="text-sm text-gray-500">Approved</div>
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <div className="text-2xl font-bold text-red-600">{stats.rejected}</div>
-          <div className="text-sm text-gray-500">Rejected</div>
+        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+          <div className="relative">
+            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search by name, email, room..."
+              className="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent w-full sm:w-72 placeholder:text-gray-400 dark:placeholder:text-gray-500 transition-colors duration-300"
+            />
+          </div>
+
+          <div className="relative">
+            <FaFilter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+            <select
+              value={statusFilter}
+              onChange={(e) => setStatusFilter(e.target.value)}
+              className="pl-10 pr-8 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent appearance-none transition-colors duration-300"
+            >
+              <option value="all">All Status</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
         </div>
       </div>
 
-      {/* Requests Table */}
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200">
-          <h2 className="text-xl font-semibold text-gray-800">All Requests</h2>
-        </div>
-        
-        {requests.length === 0 ? (
-          <div className="text-center py-12">
-            <p className="text-gray-500">No room change requests found</p>
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
+      <div className="bg-white dark:bg-dark-card rounded-xl shadow-md overflow-hidden transition-colors duration-300">
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead className="bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
+              <tr>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Student</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Current Room</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Preferred Room</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Reason</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Status</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Submitted</th>
+                <th className="px-6 py-4 text-left text-sm font-semibold text-gray-700 dark:text-gray-200 transition-colors duration-300">Action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200 dark:divide-gray-700 transition-colors duration-300">
+              {filteredRequests.length === 0 ? (
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Student
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Current Room
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Requested Room
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Reason
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Date
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Actions
-                  </th>
+                  <td colSpan="7" className="px-6 py-8 text-center text-gray-500 dark:text-gray-400 transition-colors duration-300">
+                    No room change requests found
+                  </td>
                 </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {requests && requests.length > 0 ? (
-                  requests.map((request) => (
-                    request && (
-                      <tr key={request._id || Math.random()}>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div>
-                            <div className="text-sm font-medium text-gray-900">
-                              {request?.studentId?.name || 'Unknown Student'}
-                            </div>
-                            <div className="text-sm text-gray-500">
-                              {request?.studentId?.email || 'No email'}
-                            </div>
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="text-sm text-gray-900">
-                            {request?.currentRoom?.roomNumber || 'N/A'}
-                          </div>
-                          <div className="text-sm text-gray-500">
-                            {request?.currentRoom?.type || 'N/A'}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <div className="flex items-center space-x-2">
-                            <div>
-                              <div className="text-sm font-medium text-gray-900">
-                                {request?.requestedRoom?.roomNumber || 'N/A'}
-                              </div>
-                              <div className="text-sm text-gray-500">
-                                {request?.requestedRoom?.occupiedBeds || 0}/{request?.requestedRoom?.capacity || 0} beds
-                              </div>
-                            </div>
-                            {request?.requestedRoom && (request.requestedRoom.occupiedBeds >= request.requestedRoom.capacity) && (
-                              <span className="px-2 py-1 text-xs font-medium bg-red-100 text-red-800 rounded-full">
-                                Full
-                              </span>
-                            )}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4">
-                          <div className="text-sm text-gray-900 max-w-xs truncate">
-                            {request?.reason || 'No reason provided'}
-                          </div>
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          {getStatusBadge(request?.status || 'pending')}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                          {new Date(request?.createdAt || Date.now()).toLocaleDateString()}
-                        </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                      <div className="space-y-2">
-                        {request.status === 'pending' && (
-                          <div className="flex space-x-2">
-                            {canApprove(request) && (
-                              <button
-                                onClick={() => handleApprove(request._id)}
-                                disabled={processing[request._id]}
-                                className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md text-white bg-green-600 hover:bg-green-700 disabled:opacity-50"
-                              >
-                                {processing[request._id] === 'approve' ? '...' : 'Approve'}
-                              </button>
-                            )}
-                            {!rejectMode[request._id] ? (
-                              <button
-                                onClick={() => toggleRejectMode(request._id)}
-                                disabled={processing[request._id]}
-                                className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md text-white bg-red-600 hover:bg-red-700 disabled:opacity-50"
-                              >
-                                Reject
-                              </button>
-                            ) : (
-                              <button
-                                onClick={() => toggleRejectMode(request._id)}
-                                disabled={processing[request._id]}
-                                className="inline-flex items-center px-3 py-1 border border-gray-300 text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50"
-                              >
-                                Cancel
-                              </button>
-                            )}
-                          </div>
-                        )}
-                        
-                        {/* Reject with Comment Input */}
-                        {rejectMode[request._id] && (
-                          <div className="space-y-2">
-                            <textarea
-                              value={commentInput[request._id] || ''}
-                              onChange={(e) => setCommentInput(prev => ({
-                                ...prev,
-                                [request._id]: e.target.value
-                              }))}
-                              placeholder="Enter rejection reason..."
-                              className="w-full px-2 py-1 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary-500"
-                              rows={2}
-                            />
-                            <button
-                              onClick={() => handleReject(request._id)}
-                              disabled={processing[request._id] || !commentInput[request._id]?.trim()}
-                              className="inline-flex items-center px-3 py-1 border border-transparent text-xs font-medium rounded-md text-white bg-red-600 hover:bg-red-700 disabled:opacity-50"
-                            >
-                              {processing[request._id] === 'reject' ? '...' : 'Submit Rejection'}
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                      
-                      {/* Show admin comment for rejected requests */}
-                      {request?.status === 'rejected' && request?.adminComment && (
-                        <div className="mt-2 p-2 bg-red-50 border border-red-200 rounded text-sm text-red-700">
-                          <strong>Rejection reason:</strong> {request.adminComment}
+              ) : (
+                filteredRequests.map((request) => (
+                  <tr key={request._id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300">
+                    <td className="px-6 py-4">
+                      <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">{request.studentId?.name || 'N/A'}</p>
+                      <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">{request.studentId?.email || ''}</p>
+                    </td>
+                    <td className="px-6 py-4 text-gray-700 dark:text-gray-200 transition-colors duration-300">
+                      Room {request.currentRoomId?.roomNumber} <br />
+                      <span className="text-xs text-gray-500">Block {request.currentRoomId?.hostelBlock}, Floor {request.currentRoomId?.floor}</span>
+                    </td>
+                    <td className="px-6 py-4 text-gray-700 dark:text-gray-200 transition-colors duration-300">
+                      Room {request.preferredRoomId?.roomNumber} <br />
+                      <span className="text-xs text-gray-500">Block {request.preferredRoomId?.hostelBlock}, Floor {request.preferredRoomId?.floor}</span>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300 max-w-xs transition-colors duration-300">
+                      <p className="line-clamp-2">{request.reason}</p>
+                      {request.status === 'rejected' && request.rejectionComment && (
+                        <p className="mt-2 text-red-600 text-xs">Reject Comment: {request.rejectionComment}</p>
+                      )}
+                    </td>
+                    <td className="px-6 py-4">{getStatusBadge(request.status)}</td>
+                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300">{formatDate(request.createdAt)}</td>
+                    <td className="px-6 py-4">
+                      {request.status === 'pending' ? (
+                        <div className="flex space-x-2">
+                          <button
+                            onClick={() => handleApprove(request._id)}
+                            disabled={processingId === request._id}
+                            className="flex items-center space-x-1 px-3 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
+                          >
+                            {processingId === request._id ? <FaSpinner className="animate-spin" /> : <FaCheck />}
+                            <span>Approve</span>
+                          </button>
+                          <button
+                            onClick={() => openRejectModal(request)}
+                            disabled={processingId === request._id}
+                            className="flex items-center space-x-1 px-3 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50"
+                          >
+                            <FaTimes />
+                            <span>Reject</span>
+                          </button>
                         </div>
+                      ) : (
+                        <span className="text-sm text-gray-500">Reviewed</span>
                       )}
                     </td>
                   </tr>
                 ))
-                  )
-                ) : (
-                  <tr>
-                    <td colSpan="8" className="px-6 py-12 text-center">
-                      <div className="text-gray-500">
-                        <p className="text-lg font-medium">No room change requests found</p>
-                        <p className="text-sm mt-1">Requests will appear here when students submit them</p>
-                      </div>
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
-        )}
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
+
+      {showRejectModal && selectedRequest && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white dark:bg-dark-card rounded-xl shadow-xl max-w-lg w-full p-6 transition-colors duration-300">
+            <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3 transition-colors duration-300">Reject Room Change Request</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-300">
+              Student: <span className="font-medium">{selectedRequest.studentId?.name}</span>
+            </p>
+
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-300">
+              Rejection Comment <span className="text-red-500">*</span>
+            </label>
+            <textarea
+              value={rejectionComment}
+              onChange={(e) => setRejectionComment(e.target.value)}
+              minLength={5}
+              rows="4"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-gray-500 transition-colors duration-300"
+              placeholder="Enter reason for rejection..."
+              required
+            ></textarea>
+
+            <div className="flex justify-end space-x-3 mt-6">
+              <button
+                onClick={() => {
+                  setShowRejectModal(false);
+                  setSelectedRequest(null);
+                  setRejectionComment('');
+                }}
+                className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-300"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleReject}
+                disabled={processingId === selectedRequest._id}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-50"
+              >
+                {processingId === selectedRequest._id ? 'Rejecting...' : 'Reject Request'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

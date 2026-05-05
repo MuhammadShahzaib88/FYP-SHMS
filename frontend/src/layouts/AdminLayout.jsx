@@ -13,6 +13,7 @@ import {
 } from 'react-icons/fa';
 import { useState } from 'react';
 import NotificationBell from '../components/NotificationBell';
+import DarkModeToggle from '../components/DarkModeToggle';
 
 const AdminLayout = ({ onLogout }) => {
   const location = useLocation();
@@ -36,10 +37,10 @@ const AdminLayout = ({ onLogout }) => {
   ];
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-100 dark:bg-dark-bg transition-colors duration-300">
       {/* Sidebar */}
       <aside 
-        className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-gray-800 text-white transition-all duration-300 flex flex-col`}
+        className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-gray-800 dark:bg-dark-surface text-white transition-all duration-300 flex flex-col border-r border-gray-700 dark:border-dark-border`}
       >
         <div className="p-4 flex items-center justify-between">
           {sidebarOpen && (
@@ -52,7 +53,7 @@ const AdminLayout = ({ onLogout }) => {
           )}
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 rounded-lg hover:bg-gray-700 transition-colors"
+            className="p-2 rounded-lg hover:bg-gray-700 dark:hover:bg-dark-hover transition-colors"
           >
             <FaBars />
           </button>
@@ -71,7 +72,7 @@ const AdminLayout = ({ onLogout }) => {
                     className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
                       isActive 
                         ? 'bg-primary-600 text-white' 
-                        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                        : 'text-gray-300 hover:bg-gray-700 dark:hover:bg-dark-hover hover:text-white'
                     }`}
                   >
                     <Icon className="text-lg" />
@@ -83,7 +84,7 @@ const AdminLayout = ({ onLogout }) => {
           </ul>
         </nav>
 
-        <div className="p-4 border-t border-gray-700">
+        <div className="p-4 border-t border-gray-700 dark:border-dark-border">
           <button
             onClick={handleLogout}
             className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:bg-red-600 hover:text-white transition-colors w-full"
@@ -96,12 +97,15 @@ const AdminLayout = ({ onLogout }) => {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
-        <header className="bg-white shadow-sm px-6 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-800">Admin Dashboard</h1>
-          <NotificationBell />
+        <header className="bg-white dark:bg-dark-surface shadow-sm dark:border-b dark:border-dark-border px-6 py-4 flex justify-between items-center transition-colors duration-300">
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-dark-text transition-colors duration-300">Admin Dashboard</h1>
+          <div className="flex items-center space-x-4">
+            <DarkModeToggle />
+            <NotificationBell />
+          </div>
         </header>
         
-        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 dark:bg-dark-bg p-6 transition-colors duration-300">
           <Outlet />
         </main>
       </div>

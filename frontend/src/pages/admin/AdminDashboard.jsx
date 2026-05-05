@@ -96,12 +96,12 @@ const AdminDashboard = () => {
             <a
               key={index}
               href={stat.link}
-              className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow"
+              className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow transition-colors duration-300"
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-gray-500 text-sm font-medium">{stat.title}</p>
-                  <p className="text-3xl font-bold text-gray-800 mt-2">{stat.value}</p>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm font-medium transition-colors duration-300">{stat.title}</p>
+                  <p className="text-3xl font-bold text-gray-800 dark:text-white mt-2 transition-colors duration-300">{stat.value}</p>
                 </div>
                 <div className={`${stat.color} w-14 h-14 rounded-full flex items-center justify-center`}>
                   <Icon className="text-white text-2xl" />
@@ -113,61 +113,61 @@ const AdminDashboard = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-white rounded-xl shadow-md p-6">
-        <h3 className="text-xl font-bold text-gray-800 mb-4">Quick Actions</h3>
+      <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 transition-colors duration-300">
+        <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4 transition-colors duration-300">Quick Actions</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <a
             href="/admin/applications"
-            className="flex items-center space-x-3 p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-colors"
+            className="flex items-center space-x-3 p-4 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors duration-300"
           >
             <div className="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
               <FaUsers className="text-primary-600" />
             </div>
             <div>
-              <p className="font-semibold text-gray-800">Review Applications</p>
-              <p className="text-sm text-gray-500">Approve or reject student applications</p>
+              <p className="font-semibold text-gray-800 dark:text-white transition-colors duration-300">Review Applications</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Approve or reject student applications</p>
             </div>
           </a>
 
           <a
             href="/admin/rooms"
-            className="flex items-center space-x-3 p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-colors"
+            className="flex items-center space-x-3 p-4 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors duration-300"
           >
             <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
               <FaBed className="text-purple-600" />
             </div>
             <div>
-              <p className="font-semibold text-gray-800">Manage Rooms</p>
-              <p className="text-sm text-gray-500">Add or update room information</p>
+              <p className="font-semibold text-gray-800 dark:text-white transition-colors duration-300">Manage Rooms</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Add or update room information</p>
             </div>
           </a>
 
           <a
             href="/admin/approved-students"
-            className="flex items-center space-x-3 p-4 border-2 border-dashed border-gray-300 rounded-lg hover:border-primary-500 hover:bg-primary-50 transition-colors"
+            className="flex items-center space-x-3 p-4 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg hover:border-primary-500 hover:bg-primary-50 dark:hover:bg-gray-700 transition-colors duration-300"
           >
             <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
               <FaCheckCircle className="text-green-600" />
             </div>
             <div>
-              <p className="font-semibold text-gray-800">View Students</p>
-              <p className="text-sm text-gray-500">See all approved students</p>
+              <p className="font-semibold text-gray-800 dark:text-white transition-colors duration-300">View Students</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">See all approved students</p>
             </div>
           </a>
         </div>
       </div>
 
       {/* Recent Activity */}
-      <div className="bg-white rounded-xl shadow-md p-6">
-        <h3 className="text-xl font-bold text-gray-800 mb-4">System Overview</h3>
+      <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 transition-colors duration-300">
+        <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4 transition-colors duration-300">System Overview</h3>
         <div className="space-y-4">
           <div className="flex items-center p-4 bg-gray-50 rounded-lg">
             <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-4">
               <FaUsers className="text-blue-600" />
             </div>
             <div className="flex-1">
-              <p className="font-medium text-gray-800">Total Applications</p>
-              <p className="text-sm text-gray-500">
+              <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">Total Applications</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">
                 {stats.pendingApplications} pending, {stats.approvedStudents} approved
               </p>
             </div>
@@ -178,8 +178,8 @@ const AdminDashboard = () => {
               <FaBed className="text-purple-600" />
             </div>
             <div className="flex-1">
-              <p className="font-medium text-gray-800">Room Availability</p>
-              <p className="text-sm text-gray-500">
+              <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">Room Availability</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">
                 {stats.availableRooms} rooms available out of {stats.totalRooms}
               </p>
             </div>

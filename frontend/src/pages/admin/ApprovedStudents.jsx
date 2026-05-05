@@ -52,8 +52,8 @@ const ApprovedStudents = () => {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-gray-800">Approved Students</h2>
-          <p className="text-gray-600 mt-1">
+          <h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">Approved Students</h2>
+          <p className="text-gray-600 dark:text-gray-300 mt-1 transition-colors duration-300">
             Total approved: <strong>{students.length}</strong> students
           </p>
         </div>
@@ -65,7 +65,7 @@ const ApprovedStudents = () => {
             placeholder="Search students..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent placeholder:text-gray-400 dark:placeholder:text-gray-500 transition-colors duration-300"
           />
         </div>
       </div>
@@ -73,7 +73,7 @@ const ApprovedStudents = () => {
       {/* Students Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {filteredStudents.map((student) => (
-          <div key={student._id} className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow">
+          <div key={student._id} className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow transition-colors duration-300">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center space-x-4">
                 {student.photo ? (
@@ -90,8 +90,8 @@ const ApprovedStudents = () => {
                   </div>
                 )}
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-800">{student.name}</h3>
-                  <p className="text-sm text-gray-500">{student.department} • {student.semester} Semester</p>
+                  <h3 className="text-lg font-semibold text-gray-800 dark:text-white transition-colors duration-300">{student.name}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">{student.department} • {student.semester} Semester</p>
                 </div>
               </div>
               <span className="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">
@@ -100,7 +100,7 @@ const ApprovedStudents = () => {
             </div>
 
             <div className="space-y-2 text-sm">
-              <div className="flex items-center text-gray-600">
+              <div className="flex items-center text-gray-600 dark:text-gray-300 transition-colors duration-300">
                 <FaEnvelope className="w-4 h-4 mr-3 text-gray-400" />
                 {student.email}
               </div>
@@ -116,9 +116,9 @@ const ApprovedStudents = () => {
 
             {student.roomId && (
               <div className="mt-4 pt-4 border-t border-gray-200">
-                <h4 className="text-sm font-semibold text-gray-700 mb-2">Room Assignment</h4>
+                <h4 className="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2 transition-colors duration-300">Room Assignment</h4>
                 <div className="flex items-center space-x-4 text-sm">
-                  <span className="flex items-center text-gray-600">
+                  <span className="flex items-center text-gray-600 dark:text-gray-300 transition-colors duration-300">
                     <FaBed className="mr-2 text-primary-600" />
                     Room {student.roomId.roomNumber}
                   </span>
@@ -138,14 +138,14 @@ const ApprovedStudents = () => {
       </div>
 
       {filteredStudents.length === 0 && (
-        <div className="text-center py-12 bg-white rounded-xl shadow-md">
-          <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <FaUsers className="text-gray-400 text-2xl" />
+        <div className="text-center py-12 bg-white dark:bg-dark-card rounded-xl shadow-md transition-colors duration-300">
+          <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors duration-300">
+            <FaUsers className="text-gray-400 dark:text-gray-500 text-2xl" />
           </div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">
+          <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-2 transition-colors duration-300">
             {search ? 'No students found matching your search' : 'No approved students yet'}
           </h3>
-          <p className="text-gray-500">
+          <p className="text-gray-500 dark:text-gray-400 transition-colors duration-300">
             {search ? 'Try a different search term' : 'Approve student applications to see them here'}
           </p>
         </div>

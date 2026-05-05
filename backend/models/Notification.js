@@ -21,7 +21,16 @@ const notificationSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    enum: ['application', 'complaint', 'notice', 'approval', 'rejection'],
+    enum: [
+      'application',
+      'complaint',
+      'notice',
+      'approval',
+      'rejection',
+      'room_change',
+      'room_change_approved',
+      'room_change_rejected'
+    ],
     required: true
   },
   relatedId: {

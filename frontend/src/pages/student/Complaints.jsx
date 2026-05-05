@@ -59,10 +59,10 @@ const Complaints = () => {
 
   const getStatusBadge = (status) => {
     const statusStyles = {
-      'Pending': 'bg-yellow-100 text-yellow-800',
-      'In Progress': 'bg-blue-100 text-blue-800',
-      'Resolved': 'bg-green-100 text-green-800',
-      'Not Resolved': 'bg-red-100 text-red-800'
+      'Pending': 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200',
+      'In Progress': 'bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-200',
+      'Resolved': 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-200',
+      'Not Resolved': 'bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-200'
     };
 
     return (
@@ -92,22 +92,22 @@ const Complaints = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Complaints</h1>
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 transition-colors duration-300">Complaints</h1>
 
       {/* SECTION A - Submit New Complaint */}
-      <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-        <h2 className="text-xl font-semibold text-gray-900 mb-6">Submit New Complaint</h2>
+      <div className="bg-white dark:bg-dark-card rounded-lg shadow-md p-6 mb-8 transition-colors duration-300">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 transition-colors duration-300">Submit New Complaint</h2>
         
         {successMessage && (
-          <div className="bg-green-50 border border-green-200 rounded-md p-4 mb-6">
-            <div className="text-green-800">{successMessage}</div>
+          <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-md p-4 mb-6 transition-colors duration-300">
+            <div className="text-green-800 dark:text-green-200 transition-colors duration-300">{successMessage}</div>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-300">
                 Title *
               </label>
               <input
@@ -116,20 +116,20 @@ const Complaints = () => {
                 value={formData.title}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
                 placeholder="Brief title of your complaint"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-300">
                 Category
               </label>
               <select
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
               >
                 <option value="Plumbing">Plumbing</option>
                 <option value="Electricity">Electricity</option>
@@ -142,7 +142,7 @@ const Complaints = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-300">
               Room Number *
             </label>
             <input
@@ -151,13 +151,13 @@ const Complaints = () => {
               value={formData.roomNumber}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
               placeholder="Your room number"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-300">
               Description *
             </label>
             <textarea
@@ -166,7 +166,7 @@ const Complaints = () => {
               onChange={handleChange}
               required
               rows="4"
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
               placeholder="Detailed description of your complaint"
             ></textarea>
           </div>
@@ -184,46 +184,46 @@ const Complaints = () => {
       </div>
 
       {/* SECTION B - My Complaints List */}
-      <div className="bg-white rounded-lg shadow-md p-6">
-        <h2 className="text-xl font-semibold text-gray-900 mb-6">My Complaints</h2>
+      <div className="bg-white dark:bg-dark-card rounded-lg shadow-md p-6 transition-colors duration-300">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 transition-colors duration-300">My Complaints</h2>
 
         {complaints.length === 0 ? (
           <div className="text-center py-8">
-            <p className="text-gray-500">No complaints submitted yet.</p>
+            <p className="text-gray-500 dark:text-gray-400 transition-colors duration-300">No complaints submitted yet.</p>
           </div>
         ) : (
           <div className="space-y-4">
             {complaints.map((complaint) => (
-              <div key={complaint._id} className="border border-gray-200 rounded-lg p-4">
+              <div key={complaint._id} className="border border-gray-200 dark:border-dark-border rounded-lg p-4 transition-colors duration-300">
                 <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-lg font-medium text-gray-900">{complaint.title}</h3>
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white transition-colors duration-300">{complaint.title}</h3>
                   {getStatusBadge(complaint.status)}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
                   <div>
-                    <span className="text-sm text-gray-500">Category:</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Category:</span>
                     <p className="font-medium">{complaint.category}</p>
                   </div>
                   <div>
-                    <span className="text-sm text-gray-500">Room:</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Room:</span>
                     <p className="font-medium">{complaint.roomNumber}</p>
                   </div>
                   <div>
-                    <span className="text-sm text-gray-500">Submitted:</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Submitted:</span>
                     <p className="font-medium">{formatDate(complaint.createdAt)}</p>
                   </div>
                 </div>
 
                 <div className="mb-3">
-                  <span className="text-sm text-gray-500">Description:</span>
-                  <p className="text-gray-700 mt-1">{complaint.description}</p>
+                  <span className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Description:</span>
+                  <p className="text-gray-700 dark:text-gray-300 mt-1 transition-colors duration-300">{complaint.description}</p>
                 </div>
 
                 {complaint.adminReply && (
-                  <div className="bg-blue-50 border border-blue-200 rounded-md p-3">
-                    <span className="text-sm font-medium text-blue-800">Admin Response:</span>
-                    <p className="text-blue-700 mt-1">{complaint.adminReply}</p>
+                  <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md p-3 transition-colors duration-300">
+                    <span className="text-sm font-medium text-blue-800 dark:text-blue-200 transition-colors duration-300">Admin Response:</span>
+                    <p className="text-blue-700 dark:text-blue-300 mt-1 transition-colors duration-300">{complaint.adminReply}</p>
                   </div>
                 )}
               </div>
