@@ -19,7 +19,7 @@ const Landing = () => {
         <div 
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: 'url("/FYP/SHMS/frontend/public/images/hostelimage6.png")',
+            backgroundImage: 'url("/images/hostelimage6.jpg")',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat'
