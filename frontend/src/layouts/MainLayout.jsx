@@ -30,15 +30,15 @@ const MainLayout = ({ user, onLogout }) => {
                 <FaHome />
                 <span>Home</span>
               </Link>
-              <Link to="/#about" className="flex items-center space-x-1 text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+              <Link to="/about" className="flex items-center space-x-1 text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                 <FaInfoCircle />
                 <span>About</span>
               </Link>
-              <Link to="/#rooms" className="flex items-center space-x-1 text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+              <Link to="/rooms" className="flex items-center space-x-1 text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                 <FaBed />
                 <span>Rooms</span>
               </Link>
-              <Link to="/#contact" className="flex items-center space-x-1 text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
+              <Link to="/contact" className="flex items-center space-x-1 text-gray-600 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors">
                 <FaEnvelope />
                 <span>Contact</span>
               </Link>

@@ -59,7 +59,7 @@ const StudentDashboard = () => {
 
       {/* Status Card */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 transition-colors duration-300">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-6 transition-colors duration-300">
           <div className="flex items-center space-x-4 mb-4">
             <div className={`w-14 h-14 rounded-full flex items-center justify-center ${
               roomInfo?.status === 'approved' ? 'bg-green-100' : 
@@ -103,7 +103,7 @@ const StudentDashboard = () => {
 
         {/* Room Info Card */}
         {roomInfo?.status === 'approved' && roomInfo?.room && (
-          <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 transition-colors duration-300">
+          <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-6 transition-colors duration-300">
             <div className="flex items-center space-x-4 mb-4">
               <div className="w-14 h-14 bg-primary-100 rounded-full flex items-center justify-center">
                 <FaBed className="text-primary-600 text-2xl" />
@@ -140,7 +140,7 @@ const StudentDashboard = () => {
       </div>
 
       {/* Quick Links */}
-      <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 transition-colors duration-300">
+      <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-6 transition-colors duration-300">
         <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4 transition-colors duration-300">Quick Links</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <a
@@ -185,7 +185,7 @@ const StudentDashboard = () => {
       </div>
 
       {/* Hostel Rules Reminder */}
-      <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 transition-colors duration-300">
+      <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-6 transition-colors duration-300">
         <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4 transition-colors duration-300">Remember</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-4 transition-colors duration-300">

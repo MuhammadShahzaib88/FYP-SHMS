@@ -160,7 +160,7 @@ const NoticeBoard = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-4 transition-colors duration-300">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-4 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Total Notices</p>
@@ -171,7 +171,7 @@ const NoticeBoard = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-4 transition-colors duration-300">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-4 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Active</p>
@@ -182,7 +182,7 @@ const NoticeBoard = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-4 transition-colors duration-300">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-4 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Inactive</p>
@@ -193,7 +193,7 @@ const NoticeBoard = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-4 transition-colors duration-300">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-4 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Urgent</p>
@@ -209,7 +209,7 @@ const NoticeBoard = () => {
       {/* Notices List */}
       <div className="space-y-4">
         {notices.length === 0 ? (
-          <div className="text-center py-12 bg-white dark:bg-dark-card rounded-xl shadow-md transition-colors duration-300">
+          <div className="text-center py-12 bg-white dark:bg-dark-surface rounded-xl shadow-md transition-colors duration-300">
             <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors duration-300">
               <FaBullhorn className="text-gray-400 dark:text-gray-500 text-2xl" />
             </div>
@@ -224,7 +224,7 @@ const NoticeBoard = () => {
           </div>
         ) : (
           notices.map((notice) => (
-            <div key={notice._id} className={`bg-white dark:bg-dark-card rounded-xl shadow-md overflow-hidden border-l-4 ${getPriorityColor(notice.priority)} transition-colors duration-300`}>
+            <div key={notice._id} className={`bg-white dark:bg-dark-surface rounded-xl shadow-md overflow-hidden border-l-4 ${getPriorityColor(notice.priority)} transition-colors duration-300`}>
               <div className="p-6">
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-start space-x-4">
@@ -288,7 +288,7 @@ const NoticeBoard = () => {
       {/* Create/Edit Modal */}
       {showCreateModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-dark-card rounded-xl shadow-xl max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto transition-colors duration-300">
+          <div className="bg-white dark:bg-dark-surface rounded-xl shadow-xl max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto transition-colors duration-300">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-xl font-bold text-gray-800 dark:text-white transition-colors duration-300">
                 {editingNotice ? 'Edit Notice' : 'Post New Notice'}

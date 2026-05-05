@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { FaPaperPlane, FaSpinner, FaExchangeAlt, FaClock, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import { roomChangeService, roomService, studentService } from '../../services/api';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const RoomChange = () => {
+  const { darkMode } = useTheme();
   const [requests, setRequests] = useState([]);
   const [rooms, setRooms] = useState([]);
   const [currentRoomData, setCurrentRoomData] = useState(null);
@@ -118,10 +120,14 @@ const RoomChange = () => {
 
   return (
     <div className="space-y-6">
-      <div className="bg-white rounded-xl shadow-md p-6">
+      <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-6" style={{
+        backgroundColor: darkMode ? '#1e293b' : '#ffffff'
+      }}>
         <div className="flex items-center space-x-3 mb-2">
           <FaExchangeAlt className="text-primary-600 text-xl" />
-          <h2 className="text-2xl font-bold text-gray-800">Apply for Room Change</h2>
+          <h2 className="text-2xl font-bold text-gray-800" style={{
+            color: darkMode ? '#ffffff' : '#1f2937'
+          }}>Apply for Room Change</h2>
         </div>
         <p className="text-gray-600">
           Submit your request to change room. Admin will review and approve or reject your request.
@@ -138,11 +144,19 @@ const RoomChange = () => {
       )}
 
       {isEligible && (
-        <div className="bg-white rounded-xl shadow-md p-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Submit New Request</h3>
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-6">
+          <h3 className="text-lg font-semibold text-gray-800 mb-4" style={{
+                color: darkMode ? '#f1f5f9' : '#111827'
+              }}>Submit New Request</h3>
 
-          <div className="mb-4 bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <p className="text-sm text-blue-800">
+          <div className="mb-4 bg-blue-50 border border-blue-200 rounded-lg p-4" style={{
+            backgroundColor: darkMode ? '#0f172a' : '#eff6ff',
+            color: darkMode ? '#e2e8f0' : '#1e40af',
+            border: darkMode ? '1px solid #334155' : '1px solid #bfdbfe'
+          }}>
+            <p className="text-sm" style={{
+              color: darkMode ? '#ffffff' : '#1e40af'
+            }}>
               Current Room: <span className="font-semibold">{currentRoomData.room.roomNumber}</span> |
               Block {currentRoomData.room.hostelBlock} | Floor {currentRoomData.room.floor}
             </p>
@@ -168,18 +182,27 @@ const RoomChange = () => {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Room</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2" style={{
+                color: darkMode ? '#e2e8f0' : '#374151'
+              }}>Preferred Room</label>
               <select
                 name="preferredRoomId"
                 value={formData.preferredRoomId}
                 onChange={handleChange}
                 disabled={submitting || hasPendingRequest}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:bg-gray-100"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:bg-gray-100"
+                style={{
+                  color: darkMode ? '#e2e8f0' : '#374151'
+                }}
                 required
               >
-                <option value="">Select preferred room</option>
+                <option value="" style={{
+                  color: darkMode ? '#1e293b' : '#374151'
+                }}>Select preferred room</option>
                 {availableRooms.map((room) => (
-                  <option key={room._id} value={room._id}>
+                  <option key={room._id} value={room._id} style={{
+                    color: darkMode ? '#e2e8f0' : '#374151'
+                  }}>
                     Room {room.roomNumber} - Block {room.hostelBlock}, Floor {room.floor} ({room.capacity - room.occupiedBeds} beds available)
                   </option>
                 ))}
@@ -187,7 +210,9 @@ const RoomChange = () => {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Reason</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2" style={{
+                color: darkMode ? '#e2e8f0' : '#374151'
+              }}>Reason</label>
               <textarea
                 name="reason"
                 value={formData.reason}
@@ -195,7 +220,7 @@ const RoomChange = () => {
                 disabled={submitting || hasPendingRequest}
                 rows="4"
                 minLength="10"
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:bg-gray-100"
+                className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent disabled:bg-gray-100"
                 placeholder="Please explain why you want to change your room..."
                 required
               ></textarea>
@@ -213,43 +238,64 @@ const RoomChange = () => {
         </div>
       )}
 
-      <div className="bg-white rounded-xl shadow-md p-6">
-        <h3 className="text-lg font-semibold text-gray-800 mb-4">My Room Change Requests</h3>
+      <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-6">
+        <h3 className="text-lg font-semibold text-gray-800 mb-4" style={{
+                color: darkMode ? '#f1f5f9' : '#111827'
+              }}>My Room Change Requests</h3>
 
         {requests.length === 0 ? (
-          <p className="text-gray-500">No room change requests submitted yet.</p>
+          <p className="text-gray-500" style={{
+                color: darkMode ? '#94a3b8' : '#6b7280'
+              }}>No room change requests submitted yet.</p>
         ) : (
           <div className="space-y-4">
             {requests.map((request) => (
-              <div key={request._id} className="border border-gray-200 rounded-lg p-4">
+              <div key={request._id} className="border border-gray-200 rounded-lg p-4" style={{
+                backgroundColor: darkMode ? '#334155' : '#f9fafb',
+                color: darkMode ? '#e2e8f0' : '#374151'
+              }}>
                 <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-3">
                   <div className="flex items-center space-x-2">
                     {request.status === 'pending' && <FaClock className="text-yellow-600" />}
                     {request.status === 'approved' && <FaCheckCircle className="text-green-600" />}
                     {request.status === 'rejected' && <FaTimesCircle className="text-red-600" />}
-                    <span className="font-medium text-gray-800">Request #{request._id.slice(-6)}</span>
+                    <span className="font-medium text-gray-800" style={{
+                      color: darkMode ? '#e2e8f0' : '#374151'
+                    }}>Request #{request._id.slice(-6)}</span>
                   </div>
                   {getStatusBadge(request.status)}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3 text-sm">
                   <div>
-                    <p className="text-gray-500">Current Room</p>
-                    <p className="font-medium text-gray-800">
-                      Room {request.currentRoomId?.roomNumber} (Block {request.currentRoomId?.hostelBlock}, Floor {request.currentRoomId?.floor})
-                    </p>
+                    <p className="text-gray-500" style={{
+                    color: darkMode ? '#94a3b8' : '#6b7280'
+                  }}>Current Room</p>
+                    <p className="font-medium text-gray-800" style={{
+                    color: darkMode ? '#e2e8f0' : '#374151'
+                  }}>
+                    Room {request.currentRoomId?.roomNumber} (Block {request.currentRoomId?.hostelBlock}, Floor {request.currentRoomId?.floor})
+                  </p>
                   </div>
                   <div>
-                    <p className="text-gray-500">Preferred Room</p>
-                    <p className="font-medium text-gray-800">
-                      Room {request.preferredRoomId?.roomNumber} (Block {request.preferredRoomId?.hostelBlock}, Floor {request.preferredRoomId?.floor})
-                    </p>
+                    <p className="text-gray-500" style={{
+                    color: darkMode ? '#94a3b8' : '#6b7280'
+                  }}>Preferred Room</p>
+                    <p className="font-medium text-gray-800" style={{
+                    color: darkMode ? '#e2e8f0' : '#374151'
+                  }}>
+                    Room {request.preferredRoomId?.roomNumber} (Block {request.preferredRoomId?.hostelBlock}, Floor {request.preferredRoomId?.floor})
+                  </p>
                   </div>
                 </div>
 
                 <div className="mb-3">
-                  <p className="text-gray-500 text-sm">Reason</p>
-                  <p className="text-gray-700 text-sm mt-1">{request.reason}</p>
+                  <p className="text-gray-500 text-sm" style={{
+                    color: darkMode ? '#94a3b8' : '#6b7280'
+                  }}>Reason</p>
+                  <p className="text-gray-700 text-sm mt-1" style={{
+                    color: darkMode ? '#e2e8f0' : '#374151'
+                  }}>{request.reason}</p>
                 </div>
 
                 {request.status === 'rejected' && request.rejectionComment && (

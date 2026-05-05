@@ -95,7 +95,7 @@ const Complaints = () => {
       <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 transition-colors duration-300">Complaints</h1>
 
       {/* SECTION A - Submit New Complaint */}
-      <div className="bg-white dark:bg-dark-card rounded-lg shadow-md p-6 mb-8 transition-colors duration-300">
+      <div className="bg-white dark:bg-dark-surface rounded-lg shadow-md p-6 mb-8 transition-colors duration-300">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 transition-colors duration-300">Submit New Complaint</h2>
         
         {successMessage && (
@@ -116,7 +116,7 @@ const Complaints = () => {
                 value={formData.title}
                 onChange={handleChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
                 placeholder="Brief title of your complaint"
               />
             </div>
@@ -129,7 +129,7 @@ const Complaints = () => {
                 name="category"
                 value={formData.category}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
               >
                 <option value="Plumbing">Plumbing</option>
                 <option value="Electricity">Electricity</option>
@@ -151,7 +151,7 @@ const Complaints = () => {
               value={formData.roomNumber}
               onChange={handleChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
               placeholder="Your room number"
             />
           </div>
@@ -166,7 +166,7 @@ const Complaints = () => {
               onChange={handleChange}
               required
               rows="4"
-              className="w-full px-3 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors duration-300"
               placeholder="Detailed description of your complaint"
             ></textarea>
           </div>
@@ -184,7 +184,7 @@ const Complaints = () => {
       </div>
 
       {/* SECTION B - My Complaints List */}
-      <div className="bg-white dark:bg-dark-card rounded-lg shadow-md p-6 transition-colors duration-300">
+      <div className="bg-white dark:bg-dark-surface rounded-lg shadow-md p-6 transition-colors duration-300">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 transition-colors duration-300">My Complaints</h2>
 
         {complaints.length === 0 ? (

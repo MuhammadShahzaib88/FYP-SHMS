@@ -13,11 +13,14 @@ import StudentLayout from './layouts/StudentLayout';
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Apply from './pages/Apply';
+import About from './pages/About';
+import Rooms from './pages/Rooms';
+import Contact from './pages/Contact';
 
 // Admin Pages
 import AdminDashboard from './pages/admin/AdminDashboard';
 import StudentApplications from './pages/admin/StudentApplications';
-import Rooms from './pages/admin/Rooms';
+import AdminRooms from './pages/admin/Rooms';
 import ApprovedStudents from './pages/admin/ApprovedStudents';
 import Students from './pages/admin/Students';
 import NoticeBoard from './pages/admin/NoticeBoard';
@@ -72,16 +75,9 @@ function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <Router>
+        <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<MainLayout user={user} onLogout={handleLogout} />}>
-              <Route index element={<Landing />} />
-              <Route path="login" element={<Login onLogin={handleLogin} />} />
-              <Route path="apply" element={<Apply />} />
-            </Route>
-
-            {/* Admin Routes */}
+            {/* Admin Routes - MUST come first to prevent conflicts */}
             <Route
               path="/admin"
               element={
@@ -93,7 +89,7 @@ function App() {
               <Route index element={<AdminDashboard />} />
               <Route path="applications" element={<StudentApplications />} />
               <Route path="students" element={<Students />} />
-              <Route path="rooms" element={<Rooms />} />
+              <Route path="rooms" element={<AdminRooms />} />
               <Route path="notices" element={<NoticeBoard />} />
               <Route path="complaints" element={<ComplaintsAdmin />} />
               <Route path="approved-students" element={<ApprovedStudents />} />
@@ -115,6 +111,16 @@ function App() {
               <Route path="my-room" element={<MyRoom />} />
               <Route path="profile" element={<Profile />} />
               <Route path="room-change" element={<RoomChange />} />
+            </Route>
+
+            {/* Public Routes - MUST come after admin routes */}
+            <Route path="/" element={<MainLayout user={user} onLogout={handleLogout} />}>
+              <Route index element={<Landing />} />
+              <Route path="login" element={<Login onLogin={handleLogin} />} />
+              <Route path="apply" element={<Apply />} />
+              <Route path="about" element={<About />} />
+              <Route path="rooms" element={<Rooms />} />
+              <Route path="contact" element={<Contact />} />
             </Route>
           </Routes>
           <AIChatWidget />

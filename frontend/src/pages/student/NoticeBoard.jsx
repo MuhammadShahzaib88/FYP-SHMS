@@ -120,7 +120,7 @@ const NoticeBoard = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-4 transition-colors duration-300">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-4 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Total Notices</p>
@@ -131,7 +131,7 @@ const NoticeBoard = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-4 transition-colors duration-300">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-4 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Important</p>
@@ -142,7 +142,7 @@ const NoticeBoard = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-4 transition-colors duration-300">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-4 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Urgent</p>
@@ -158,7 +158,7 @@ const NoticeBoard = () => {
       {/* Notices List */}
       <div className="space-y-4">
         {notices.length === 0 ? (
-          <div className="text-center py-12 bg-white dark:bg-dark-card rounded-xl shadow-md transition-colors duration-300">
+          <div className="text-center py-12 bg-white dark:bg-dark-surface rounded-xl shadow-md transition-colors duration-300">
             <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors duration-300">
               <FaBullhorn className="text-gray-400 dark:text-gray-500 text-2xl transition-colors duration-300" />
             </div>
@@ -169,7 +169,7 @@ const NoticeBoard = () => {
           notices.map((notice) => (
             <div 
               key={notice._id} 
-              className={`bg-white dark:bg-dark-card rounded-xl shadow-md overflow-hidden border-l-4 ${getPriorityColor(notice.priority)} transition-colors duration-300 ${
+              className={`bg-white dark:bg-dark-surface rounded-xl shadow-md overflow-hidden border-l-4 ${getPriorityColor(notice.priority)} transition-colors duration-300 ${
                 isNewNotice(notice) ? 'ring-2 ring-primary-200' : ''
               }`}
             >

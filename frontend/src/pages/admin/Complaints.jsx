@@ -90,7 +90,7 @@ const Complaints = () => {
       <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8 transition-colors duration-300">Complaint Management</h1>
 
       {/* Filter Bar */}
-      <div className="bg-white dark:bg-dark-card rounded-lg shadow-md p-4 mb-6 transition-colors duration-300">
+      <div className="bg-white dark:bg-dark-surface rounded-lg shadow-md p-4 mb-6 transition-colors duration-300">
         <div className="flex items-center space-x-4">
           <label className="text-sm font-medium text-gray-700 dark:text-gray-300 transition-colors duration-300">Filter by Status:</label>
           <select
@@ -108,7 +108,7 @@ const Complaints = () => {
       </div>
 
       {/* Complaints List */}
-      <div className="bg-white dark:bg-dark-card rounded-lg shadow-md overflow-hidden transition-colors duration-300">
+      <div className="bg-white dark:bg-dark-surface rounded-lg shadow-md overflow-hidden transition-colors duration-300">
         {complaints.length === 0 ? (
           <div className="text-center py-8">
             <p className="text-gray-500 dark:text-gray-400 transition-colors duration-300">No complaints found.</p>
@@ -144,7 +144,7 @@ const Complaints = () => {
                   </th>
                 </tr>
               </thead>
-              <tbody className="bg-white dark:bg-dark-card divide-y divide-gray-200 dark:divide-gray-700 transition-colors duration-300">
+              <tbody className="bg-white dark:bg-dark-surface divide-y divide-gray-200 dark:divide-gray-700 transition-colors duration-300">
                 {complaints.map((complaint) => (
                   <tr key={complaint._id}>
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white transition-colors duration-300">
@@ -187,7 +187,7 @@ const Complaints = () => {
       {/* Management Modal/Panel */}
       {selectedComplaint && (
         <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-dark-card transition-colors duration-300">
+          <div className="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white dark:bg-dark-surface transition-colors duration-300">
             <div className="mt-3">
               <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4 transition-colors duration-300">Manage Complaint</h3>
               

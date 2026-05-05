@@ -96,7 +96,7 @@ const AdminDashboard = () => {
             <a
               key={index}
               href={stat.link}
-              className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow transition-colors duration-300"
+              className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow transition-colors duration-300"
             >
               <div className="flex items-center justify-between">
                 <div>
@@ -113,7 +113,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Quick Actions */}
-      <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 transition-colors duration-300">
+      <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-6 transition-colors duration-300">
         <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4 transition-colors duration-300">Quick Actions</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <a
@@ -158,7 +158,7 @@ const AdminDashboard = () => {
       </div>
 
       {/* Recent Activity */}
-      <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 transition-colors duration-300">
+      <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-6 transition-colors duration-300">
         <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4 transition-colors duration-300">System Overview</h3>
         <div className="space-y-4">
           <div className="flex items-center p-4 bg-gray-50 rounded-lg">

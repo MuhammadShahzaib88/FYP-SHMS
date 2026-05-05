@@ -47,7 +47,7 @@ const MyRoom = () => {
   if (roomInfo?.status !== 'approved') {
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-8 text-center transition-colors duration-300">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-8 text-center transition-colors duration-300">
           <div className={`w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 ${
             roomInfo?.status === 'pending' ? 'bg-yellow-100' : 'bg-red-100'
           }`}>
@@ -100,7 +100,7 @@ const MyRoom = () => {
       </div>
 
       {/* Room Details Card */}
-      <div className="bg-white dark:bg-dark-card rounded-xl shadow-md overflow-hidden transition-colors duration-300">
+      <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md overflow-hidden transition-colors duration-300">
         <div className="bg-gradient-to-r from-primary-600 to-primary-800 p-6 text-white">
           <div className="flex items-center space-x-4">
             <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center">
@@ -172,7 +172,7 @@ const MyRoom = () => {
       </div>
 
       {/* Room Facilities */}
-      <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 transition-colors duration-300">
+      <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-6 transition-colors duration-300">
         <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-4 transition-colors duration-300">Room Facilities</h3>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="flex items-center space-x-3 p-4 bg-gray-50 dark:bg-gray-700 rounded-lg transition-colors duration-300">

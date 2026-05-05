@@ -73,7 +73,7 @@ const ApprovedStudents = () => {
       {/* Students Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {filteredStudents.map((student) => (
-          <div key={student._id} className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow transition-colors duration-300">
+          <div key={student._id} className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-6 hover:shadow-lg transition-shadow transition-colors duration-300">
             <div className="flex items-start justify-between mb-4">
               <div className="flex items-center space-x-4">
                 {student.photo ? (
@@ -138,7 +138,7 @@ const ApprovedStudents = () => {
       </div>
 
       {filteredStudents.length === 0 && (
-        <div className="text-center py-12 bg-white dark:bg-dark-card rounded-xl shadow-md transition-colors duration-300">
+        <div className="text-center py-12 bg-white dark:bg-dark-surface rounded-xl shadow-md transition-colors duration-300">
           <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors duration-300">
             <FaUsers className="text-gray-400 dark:text-gray-500 text-2xl" />
           </div>

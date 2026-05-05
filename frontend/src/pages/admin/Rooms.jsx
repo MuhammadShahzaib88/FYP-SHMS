@@ -14,7 +14,8 @@ import {
   FaFilter,
   FaEye,
   FaEyeSlash,
-  FaUserGraduate
+  FaUserGraduate,
+  FaMapMarker
 } from 'react-icons/fa';
 import { roomService } from '../../services/api';
 import { studentService } from '../../services/api';
@@ -24,7 +25,7 @@ const Rooms = () => {
   const [loading, setLoading] = useState(true);
   const [showAddModal, setShowAddModal] = useState(false);
   const [deleting, setDeleting] = useState(null);
-  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [expandedRooms, setExpandedRooms] = useState(new Set());
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
   const [formData, setFormData] = useState({
@@ -59,6 +60,16 @@ const Rooms = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const toggleExpandedRoom = (roomId) => {
+    const newExpanded = new Set(expandedRooms);
+    if (newExpanded.has(roomId)) {
+      newExpanded.delete(roomId);
+    } else {
+      newExpanded.add(roomId);
+    }
+    setExpandedRooms(newExpanded);
   };
 
   const handleSubmit = async (e) => {
@@ -148,7 +159,7 @@ const Rooms = () => {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-4 transition-colors duration-300">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-4 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Total Rooms</p>
@@ -159,7 +170,7 @@ const Rooms = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-4 transition-colors duration-300">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-4 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Occupied</p>
@@ -170,7 +181,7 @@ const Rooms = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-4 transition-colors duration-300">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-4 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Available</p>
@@ -181,7 +192,7 @@ const Rooms = () => {
             </div>
           </div>
         </div>
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-4 transition-colors duration-300">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-4 transition-colors duration-300">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Total Students</p>
@@ -225,7 +236,7 @@ const Rooms = () => {
       {/* Rooms Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {filteredRooms.map((room) => (
-          <div key={room._id} className="bg-white dark:bg-dark-card rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow transition-colors duration-300">
+          <div key={room._id} className="bg-white dark:bg-dark-surface rounded-xl shadow-md overflow-hidden hover:shadow-lg hover:scale-[1.02] transition-all duration-300">
             {/* Room Header */}
             <div className="p-6 border-b border-gray-100 dark:border-gray-700 transition-colors duration-300">
               <div className="flex justify-between items-start">
@@ -235,7 +246,10 @@ const Rooms = () => {
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-800 dark:text-white transition-colors duration-300">Room {room.roomNumber}</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Block {room.hostelBlock} • Floor {room.floor}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center transition-colors duration-300">
+                      <FaMapMarker className="mr-1 text-xs" />
+                      Block {room.hostelBlock} • Floor {room.floor}
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -243,7 +257,7 @@ const Rooms = () => {
                   <button
                     onClick={() => handleDelete(room._id)}
                     disabled={deleting === room._id}
-                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors disabled:opacity-50"
+                    className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors disabled:opacity-50"
                   >
                     {deleting === room._id ? (
                       <FaSpinner className="animate-spin" />
@@ -256,15 +270,18 @@ const Rooms = () => {
 
               {/* Room Stats */}
               <div className="mt-4 grid grid-cols-3 gap-4">
-                <div className="text-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg transition-colors duration-300">
+                <div className="text-center p-3 bg-gray-50 dark:bg-dark-surface rounded-lg transition-colors duration-300">
+                  <FaLayerGroup className="mx-auto mb-2 text-gray-500 dark:text-gray-400 text-sm" />
                   <p className="text-xs text-gray-500 dark:text-gray-400 transition-colors duration-300">Type</p>
                   <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300 capitalize">{room.type || (room.capacity === 1 ? 'single' : room.capacity === 2 ? 'double' : 'triple')}</p>
                 </div>
-                <div className="text-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg transition-colors duration-300">
+                <div className="text-center p-3 bg-gray-50 dark:bg-dark-surface rounded-lg transition-colors duration-300">
+                  <FaBed className="mx-auto mb-2 text-gray-500 dark:text-gray-400 text-sm" />
                   <p className="text-xs text-gray-500 dark:text-gray-400 transition-colors duration-300">Capacity</p>
                   <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">{room.capacity} beds</p>
                 </div>
-                <div className="text-center p-3 bg-gray-50 dark:bg-gray-700 rounded-lg transition-colors duration-300">
+                <div className="text-center p-3 bg-gray-50 dark:bg-dark-surface rounded-lg transition-colors duration-300">
+                  <FaUsers className="mx-auto mb-2 text-gray-500 dark:text-gray-400 text-sm" />
                   <p className="text-xs text-gray-500 dark:text-gray-400 transition-colors duration-300">Occupied</p>
                   <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">{room.occupiedBeds} / {room.capacity}</p>
                 </div>
@@ -287,7 +304,7 @@ const Rooms = () => {
             </div>
 
             {/* Students List */}
-            <div className="p-6 bg-gray-50">
+            <div className="p-6 bg-gray-50 dark:bg-dark-surface transition-colors duration-300">
               <div className="flex items-center justify-between mb-4">
                 <h4 className="font-semibold text-gray-800 dark:text-white flex items-center transition-colors duration-300">
                   <FaUsers className="mr-2" />
@@ -295,11 +312,11 @@ const Rooms = () => {
                 </h4>
                 {room.students?.length > 0 && (
                   <button
-                    onClick={() => setSelectedRoom(selectedRoom === room._id ? null : room._id)}
-                    className="text-sm text-primary-600 hover:text-primary-800 flex items-center"
+                    onClick={() => toggleExpandedRoom(room._id)}
+                    className="text-sm text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 flex items-center transition-colors duration-300"
                   >
-                    {selectedRoom === room._id ? (
-                      <><FaEyeSlash className="mr-1" /> Hide</>
+                    {expandedRooms.has(room._id) ? (
+                      <><FaEyeSlash className="mr-1" /> Show Less</>
                     ) : (
                       <><FaEye className="mr-1" /> View All</>
                     )}
@@ -311,8 +328,8 @@ const Rooms = () => {
                 <p className="text-gray-500 dark:text-gray-400 text-sm italic transition-colors duration-300">No students assigned to this room</p>
               ) : (
                 <div className="space-y-3">
-                  {(selectedRoom === room._id ? room.students : room.students.slice(0, 2)).map((student, index) => (
-                    <div key={index} className="bg-white dark:bg-gray-700 rounded-lg p-3 flex items-center space-x-3 transition-colors duration-300">
+                  {(expandedRooms.has(room._id) ? room.students : room.students.slice(0, 2)).map((student, index) => (
+                    <div key={index} className="bg-white dark:bg-gray-800 rounded-lg p-3 flex items-center space-x-3 transition-colors duration-300">
                       <div className="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
                         <FaUser className="text-primary-600" />
                       </div>
@@ -331,10 +348,10 @@ const Rooms = () => {
                       </div>
                     </div>
                   ))}
-                  {room.students.length > 2 && selectedRoom !== room._id && (
+                  {room.students.length > 2 && !expandedRooms.has(room._id) && (
                     <button
-                      onClick={() => setSelectedRoom(room._id)}
-                      className="w-full py-2 text-sm text-primary-600 hover:text-primary-800 text-center"
+                      onClick={() => toggleExpandedRoom(room._id)}
+                      className="w-full py-2 text-sm text-primary-600 hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 text-center transition-colors duration-300"
                     >
                       +{room.students.length - 2} more students
                     </button>
@@ -347,7 +364,7 @@ const Rooms = () => {
       </div>
 
       {filteredRooms.length === 0 && (
-        <div className="text-center py-12 bg-white dark:bg-dark-card rounded-xl shadow-md transition-colors duration-300">
+        <div className="text-center py-12 bg-white dark:bg-dark-surface rounded-xl shadow-md transition-colors duration-300">
           <div className="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors duration-300">
             <FaBed className="text-gray-400 dark:text-gray-500 text-2xl" />
           </div>
@@ -371,7 +388,7 @@ const Rooms = () => {
       {/* Add Room Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-dark-card rounded-xl shadow-xl max-w-md w-full p-6 transition-colors duration-300">
+          <div className="bg-white dark:bg-dark-surface rounded-xl shadow-xl max-w-md w-full p-6 transition-colors duration-300">
             <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-6 transition-colors duration-300">Add New Room</h3>
             
             <form onSubmit={handleSubmit} className="space-y-4">

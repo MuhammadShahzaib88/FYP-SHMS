@@ -158,7 +158,7 @@ const RoomChangeRequests = () => {
         </div>
       </div>
 
-      <div className="bg-white dark:bg-dark-card rounded-xl shadow-md overflow-hidden transition-colors duration-300">
+      <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md overflow-hidden transition-colors duration-300">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead className="bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
@@ -236,7 +236,7 @@ const RoomChangeRequests = () => {
 
       {showRejectModal && selectedRequest && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white dark:bg-dark-card rounded-xl shadow-xl max-w-lg w-full p-6 transition-colors duration-300">
+          <div className="bg-white dark:bg-dark-surface rounded-xl shadow-xl max-w-lg w-full p-6 transition-colors duration-300">
             <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3 transition-colors duration-300">Reject Room Change Request</h3>
             <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-300">
               Student: <span className="font-medium">{selectedRequest.studentId?.name}</span>

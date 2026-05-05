@@ -15,12 +15,28 @@ import {
   FaTimesCircle
 } from 'react-icons/fa';
 import { studentService } from '../../services/api';
+import { useTheme } from '../../contexts/ThemeContext';
 
 const Profile = () => {
+  const { darkMode } = useTheme();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+  const formatDate = (dateStr) => {
+    if (!dateStr) return 'N/A';
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) return 'N/A';
+    return date.toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric' 
+    }) + ' at ' + date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
 
   useEffect(() => {
     fetchProfile();
@@ -123,7 +139,7 @@ const Profile = () => {
       <h2 className="text-2xl font-bold text-gray-800 dark:text-white transition-colors duration-300">My Profile</h2>
 
       {/* User Info Card */}
-      <div className="bg-white dark:bg-dark-card rounded-xl shadow-md overflow-hidden transition-colors duration-300">
+      <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md overflow-hidden transition-colors duration-300">
         <div className="bg-gradient-to-r from-primary-600 to-primary-800 p-6 text-white">
           <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
             {profile?.application?.photo ? (
@@ -264,40 +280,70 @@ const Profile = () => {
 
       {/* Room Information */}
       {profile?.application?.status === 'approved' && profile?.application?.room && (
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 transition-colors duration-300">
-          <h4 className="text-lg font-semibold text-gray-800 pb-2 border-b border-gray-200 mb-4">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-6 transition-colors duration-300">
+          <h4 className="text-lg font-semibold text-gray-800 pb-2 border-b border-gray-200 mb-4" style={{
+            color: darkMode ? '#f1f5f9' : '#111827'
+          }}>
             Room Assignment
           </h4>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="flex items-center space-x-3 p-4 bg-primary-50 rounded-lg">
+            <div className="flex items-center space-x-3 p-4 rounded-lg" style={{
+                backgroundColor: darkMode ? '#1e293b' : '#f8fafc',
+                border: darkMode ? '1px solid #334155' : '1px solid #e2e8f0'
+              }}>
               <FaBed className="text-primary-600 text-xl" />
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Room Number</p>
-                <p className="font-semibold text-gray-800 dark:text-white transition-colors duration-300">{profile?.application?.room?.roomNumber}</p>
+                <p className="text-sm" style={{
+                  color: darkMode ? '#94a3b8' : '#6b7280'
+                }}>Room Number</p>
+                <p className="font-semibold" style={{
+                  color: darkMode ? '#f1f5f9' : '#111827'
+                }}>{profile?.application?.room?.roomNumber}</p>
               </div>
             </div>
-            <div className="flex items-center space-x-3 p-4 bg-primary-50 rounded-lg">
+            <div className="flex items-center space-x-3 p-4 rounded-lg" style={{
+                backgroundColor: darkMode ? '#1e293b' : '#f8fafc',
+                border: darkMode ? '1px solid #334155' : '1px solid #e2e8f0'
+              }}>
               <FaBuilding className="text-primary-600 text-xl" />
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Hostel Block</p>
-                <p className="font-semibold text-gray-800 dark:text-white transition-colors duration-300">{profile?.application?.room?.hostelBlock}</p>
+                <p className="text-sm" style={{
+                  color: darkMode ? '#94a3b8' : '#6b7280'
+                }}>Hostel Block</p>
+                <p className="font-semibold" style={{
+                  color: darkMode ? '#f1f5f9' : '#111827'
+                }}>{profile?.application?.room?.hostelBlock}</p>
               </div>
             </div>
-            <div className="flex items-center space-x-3 p-4 bg-primary-50 rounded-lg">
+            <div className="flex items-center space-x-3 p-4 rounded-lg" style={{
+                backgroundColor: darkMode ? '#1e293b' : '#f8fafc',
+                border: darkMode ? '1px solid #334155' : '1px solid #e2e8f0'
+              }}>
               <div className="w-5 h-5 border-2 border-primary-600 rounded flex items-center justify-center">
                 <span className="text-primary-600 text-xs font-bold">F</span>
               </div>
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Floor</p>
-                <p className="font-semibold text-gray-800 dark:text-white transition-colors duration-300">{profile?.application?.room?.floor}</p>
+                <p className="text-sm" style={{
+                  color: darkMode ? '#94a3b8' : '#6b7280'
+                }}>Floor</p>
+                <p className="font-semibold" style={{
+                  color: darkMode ? '#f1f5f9' : '#111827'
+                }}>{profile?.application?.room?.floor}</p>
               </div>
             </div>
-            <div className="flex items-center space-x-3 p-4 bg-primary-50 rounded-lg">
+            <div className="flex items-center space-x-3 p-4 rounded-lg" style={{
+                backgroundColor: darkMode ? '#1e293b' : '#f8fafc',
+                border: darkMode ? '1px solid #334155' : '1px solid #e2e8f0'
+              }}>
               <FaUser className="text-primary-600 text-xl" />
               <div>
-                <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">Occupancy</p>
-                <p className="font-semibold text-gray-800 dark:text-white transition-colors duration-300">
-                  {profile?.application?.room?.occupiedBeds} / {profile?.application?.room?.capacity}
+                <p className="text-sm" style={{
+                  color: darkMode ? '#94a3b8' : '#6b7280'
+                }}>Occupancy</p>
+                <p className="font-semibold" style={{
+                  color: darkMode ? '#f1f5f9' : '#111827'
+                }}>
+                  {profile?.application?.room?.occupiedBeds || 1} / {profile?.application?.room?.capacity || 4}
                 </p>
               </div>
             </div>
@@ -306,20 +352,36 @@ const Profile = () => {
       )}
 
       {/* Application Timeline */}
-      <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-6 transition-colors duration-300">
-        <h4 className="text-lg font-semibold text-gray-800 pb-2 border-b border-gray-200 mb-4">
-          Application Timeline
-        </h4>
+      <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-6 transition-colors duration-300" style={{
+        backgroundColor: darkMode ? '#1e293b' : '#ffffff',
+        padding: '20px',
+        borderRadius: '12px',
+        border: darkMode ? '1px solid #334155' : '1px solid #e5e7eb'
+      }}>
+        <h3 style={{ 
+  color: darkMode ? '#f1f5f9' : '#111827',
+  fontSize: '18px',
+  fontWeight: '600',
+  marginBottom: '16px'
+}}>
+  Application Timeline
+</h3>
         <div className="space-y-4">
           <div className="flex items-start space-x-4">
             <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
               <FaClock className="text-blue-600" />
             </div>
             <div>
-              <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">Application Submitted</p>
-              <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">
-                {new Date(profile?.application?.createdAt).toLocaleDateString()} at{' '}
-                {new Date(profile?.application?.createdAt).toLocaleTimeString()}
+              <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300" style={{
+                color: darkMode ? '#f1f5f9' : '#111827',
+                fontWeight: '600',
+                fontSize: '15px'
+              }}>Application Submitted</p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300" style={{
+                color: darkMode ? '#94a3b8' : '#6b7280',
+                fontSize: '13px'
+              }}>
+                {formatDate(profile?.application?.createdAt)}
               </p>
             </div>
           </div>
@@ -336,13 +398,19 @@ const Profile = () => {
                 )}
               </div>
               <div>
-                <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300">
-                  Application {profile?.application?.status === 'approved' ? 'Approved' : 'Rejected'}
-                </p>
-                <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300">
-                  {new Date(profile?.application?.updatedAt).toLocaleDateString()} at{' '}
-                  {new Date(profile?.application?.updatedAt).toLocaleTimeString()}
-                </p>
+                <p className="font-medium text-gray-800 dark:text-white transition-colors duration-300" style={{
+                color: darkMode ? '#f1f5f9' : '#111827',
+                fontWeight: '600',
+                fontSize: '15px'
+              }}>
+                Application {profile?.application?.status === 'approved' ? 'Approved' : 'Rejected'}
+              </p>
+              <p className="text-sm text-gray-500 dark:text-gray-400 transition-colors duration-300" style={{
+                color: darkMode ? '#94a3b8' : '#6b7280',
+                fontSize: '13px'
+              }}>
+                {formatDate(profile?.application?.updatedAt)}
+              </p>
               </div>
             </div>
           )}

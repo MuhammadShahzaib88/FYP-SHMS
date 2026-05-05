@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { 
   FaBed, 
   FaWifi, 
@@ -7,10 +8,58 @@ import {
   FaCheckCircle,
   FaClock,
   FaBook,
-  FaMedkit
+  FaMedkit,
+  FaSpinner
 } from 'react-icons/fa';
+import emailjs from '@emailjs/browser';
 
 const Landing = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState('');
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init("YKdnkTnKCyDCqTqxn");
+  }, []);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setStatus('');
+
+    try {
+      await emailjs.sendForm(
+        'service_uximqnk',
+        'template_qun2y3b',
+        e.target,
+        'YKdnkTnKCyDCqTqxn'
+      );
+      
+      setStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+      
+      // Clear success message after 5 seconds
+      setTimeout(() => setStatus(''), 5000);
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      setStatus('error');
+      
+      // Clear error message after 5 seconds
+      setTimeout(() => setStatus(''), 5000);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-dark-bg transition-colors duration-300">
       {/* Hero Section with Background Image */}
@@ -76,36 +125,64 @@ const Landing = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="bg-white dark:bg-dark-card p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
-              <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
-                <FaWifi className="text-primary-600 text-2xl" />
+            <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400" 
+                alt="High-Speed WiFi" 
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
+                  <FaWifi className="text-primary-600 text-2xl" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">High-Speed WiFi</h3>
+                <p className="text-gray-600 dark:text-dark-text-secondary transition-colors duration-300">24/7 high-speed internet access for all your study needs.</p>
               </div>
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">High-Speed WiFi</h3>
-              <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">24/7 high-speed internet access for all your study needs.</p>
             </div>
             
-            <div className="bg-white dark:bg-dark-card p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
-              <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
-                <FaShieldAlt className="text-primary-600 text-2xl" />
+            <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=400" 
+                alt="24/7 Security" 
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
+                  <FaShieldAlt className="text-primary-600 text-2xl" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">24/7 Security</h3>
+                <p className="text-gray-600 dark:text-dark-text-secondary transition-colors duration-300">Round-the-clock security with CCTV surveillance.</p>
               </div>
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">24/7 Security</h3>
-              <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Round-the-clock security with CCTV surveillance.</p>
             </div>
             
-            <div className="bg-white dark:bg-dark-card p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
-              <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
-                <FaUtensils className="text-primary-600 text-2xl" />
+            <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=400" 
+                alt="Mess Facility" 
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
+                  <FaUtensils className="text-primary-600 text-2xl" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">Mess Facility</h3>
+                <p className="text-gray-600 dark:text-dark-text-secondary transition-colors duration-300">Nutritious meals with vegetarian and non-vegetarian options.</p>
               </div>
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">Mess Facility</h3>
-              <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Nutritious meals with vegetarian and non-vegetarian options.</p>
             </div>
             
-            <div className="bg-white dark:bg-dark-card p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300">
-              <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
-                <FaBook className="text-primary-600 text-2xl" />
+            <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 overflow-hidden">
+              <img 
+                src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=400" 
+                alt="Study Rooms" 
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mb-4">
+                  <FaBook className="text-primary-600 text-2xl" />
+                </div>
+                <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">Study Rooms</h3>
+                <p className="text-gray-600 dark:text-dark-text-secondary transition-colors duration-300">Dedicated quiet study spaces for focused learning.</p>
               </div>
-              <h3 className="text-lg font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">Study Rooms</h3>
-              <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Dedicated quiet study spaces for focused learning.</p>
             </div>
           </div>
         </div>
@@ -196,14 +273,18 @@ const Landing = () => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white dark:bg-dark-card rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
-              <div className="h-48 bg-primary-100 flex items-center justify-center">
-                <FaBed className="text-6xl text-primary-600" />
+            <div className="bg-white dark:bg-dark-surface rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+              <div className="overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1555854877-bab0e564b8d5?w=500" 
+                  alt="2 Seater Hostel Room" 
+                  className="w-full h-56 object-cover rounded-t-xl hover:scale-105 transition-transform duration-300"
+                />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">2-Seater Room</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-300">Perfect for students who prefer more privacy.</p>
-                <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300">
+                <p className="text-gray-600 dark:text-dark-text-secondary mb-4 transition-colors duration-300">Perfect for students who prefer more privacy.</p>
+                <ul className="space-y-2 text-sm text-gray-600 dark:text-dark-text-secondary transition-colors duration-300">
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />2 Single Beds</li>
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />2 Study Tables</li>
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />2 Wardrobes</li>
@@ -212,14 +293,18 @@ const Landing = () => {
               </div>
             </div>
             
-            <div className="bg-white dark:bg-dark-card rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
-              <div className="h-48 bg-primary-100 flex items-center justify-center">
-                <FaBed className="text-6xl text-primary-600" />
+            <div className="bg-white dark:bg-dark-surface rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+              <div className="overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500" 
+                  alt="3 Seater Hostel Room" 
+                  className="w-full h-56 object-cover rounded-t-xl hover:scale-105 transition-transform duration-300"
+                />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">3-Seater Room</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-300">Balanced option for comfort and affordability.</p>
-                <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300">
+                <p className="text-gray-600 dark:text-dark-text-secondary mb-4 transition-colors duration-300">Balanced option for comfort and affordability.</p>
+                <ul className="space-y-2 text-sm text-gray-600 dark:text-dark-text-secondary transition-colors duration-300">
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />3 Single Beds</li>
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />3 Study Tables</li>
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />3 Wardrobes</li>
@@ -228,14 +313,18 @@ const Landing = () => {
               </div>
             </div>
             
-            <div className="bg-white dark:bg-dark-card rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
-              <div className="h-48 bg-primary-100 flex items-center justify-center">
-                <FaBed className="text-6xl text-primary-600" />
+            <div className="bg-white dark:bg-dark-surface rounded-xl overflow-hidden shadow-md hover:shadow-lg transition-all duration-300">
+              <div className="overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=500" 
+                  alt="4 Seater Hostel Room" 
+                  className="w-full h-56 object-cover rounded-t-xl hover:scale-105 transition-transform duration-300"
+                />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-gray-800 dark:text-dark-text mb-2 transition-colors duration-300">4-Seater Room</h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4 transition-colors duration-300">Economical choice with shared facilities.</p>
-                <ul className="space-y-2 text-sm text-gray-600 dark:text-gray-300 transition-colors duration-300">
+                <p className="text-gray-600 dark:text-dark-text-secondary mb-4 transition-colors duration-300">Economical choice with shared facilities.</p>
+                <ul className="space-y-2 text-sm text-gray-600 dark:text-dark-text-secondary transition-colors duration-300">
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />4 Single Beds</li>
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />4 Study Tables</li>
                   <li className="flex items-center"><FaCheckCircle className="text-green-500 mr-2" />4 Wardrobes</li>
@@ -258,12 +347,28 @@ const Landing = () => {
               </p>
             </div>
             
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
+              {status === 'success' && (
+                <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 text-green-700 dark:text-green-400 px-4 py-3 rounded-lg transition-colors duration-300">
+                  Message sent successfully! ✅
+                </div>
+              )}
+              
+              {status === 'error' && (
+                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg transition-colors duration-300">
+                  Failed to send. Please try again. ❌
+                </div>
+              )}
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-300">Name</label>
                   <input
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
                     className="w-full px-4 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-300"
                     placeholder="Your name"
                   />
@@ -272,6 +377,10 @@ const Landing = () => {
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-300">Email</label>
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
                     className="w-full px-4 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-300"
                     placeholder="your@email.com"
                   />
@@ -281,6 +390,10 @@ const Landing = () => {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-300">Subject</label>
                 <input
                   type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
                   className="w-full px-4 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-300"
                   placeholder="Message subject"
                 />
@@ -288,6 +401,10 @@ const Landing = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 transition-colors duration-300">Message</label>
                 <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
                   rows="4"
                   className="w-full px-4 py-2 border border-gray-300 dark:border-dark-border bg-white dark:bg-dark-surface text-gray-900 dark:text-dark-text rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-colors duration-300"
                   placeholder="Your message"
@@ -295,9 +412,29 @@ const Landing = () => {
               </div>
               <button
                 type="submit"
-                className="w-full px-6 py-3 bg-primary-600 text-white font-semibold rounded-lg hover:bg-primary-700 transition-colors"
+                disabled={loading}
+                className={`w-full px-6 py-3 font-semibold rounded-lg transition-all duration-300 flex items-center justify-center ${
+                  loading 
+                    ? 'bg-gray-400 text-gray-200 cursor-not-allowed' 
+                    : status === 'success'
+                    ? 'bg-green-600 text-white hover:bg-green-700'
+                    : status === 'error'
+                    ? 'bg-red-600 text-white hover:bg-red-700'
+                    : 'bg-primary-600 text-white hover:bg-primary-700'
+                }`}
               >
-                Send Message
+                {loading ? (
+                  <>
+                    <FaSpinner className="animate-spin mr-2" />
+                    Sending...
+                  </>
+                ) : status === 'success' ? (
+                  'Message Sent! ✅'
+                ) : status === 'error' ? (
+                  'Send Again ❌'
+                ) : (
+                  'Send Message'
+                )}
               </button>
             </form>
           </div>

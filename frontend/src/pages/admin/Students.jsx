@@ -139,13 +139,13 @@ const Students = () => {
       </div>
 
       {students.length === 0 ? (
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md p-8 text-center transition-colors duration-300">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md p-8 text-center transition-colors duration-300">
           <FaUserGraduate className="mx-auto text-6xl text-gray-300 mb-4" />
           <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-2 transition-colors duration-300">No Students Found</h3>
           <p className="text-gray-500 dark:text-gray-400 transition-colors duration-300">There are no student accounts in the system yet.</p>
         </div>
       ) : (
-        <div className="bg-white dark:bg-dark-card rounded-xl shadow-md overflow-hidden transition-colors duration-300">
+        <div className="bg-white dark:bg-dark-surface rounded-xl shadow-md overflow-hidden transition-colors duration-300">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
