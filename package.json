@@ -4,12 +4,11 @@
   "description": "Smart Hostel Management System - MERN Stack",
   "main": "index.js",
   "scripts": {
-    "install-deps": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "install-deps": "npm install && cd frontend && npm install",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "cd backend && npm run dev",
+    "server": "cd backend && C:\\xampp\\php\\php.exe -S localhost:5000 index.php",
     "client": "cd frontend && npm run dev",
-    "build": "cd frontend && npm run build",
-    "seed": "cd backend && node seedAdmin.js"
+    "build": "cd frontend && npm run build"
   },
   "keywords": [
     "mern",

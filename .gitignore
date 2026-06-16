@@ -1,0 +1,26 @@
+# Smart Hostel Management System - .gitignore
+
+# Dependency directories
+node_modules/
+frontend/node_modules/
+
+# Production build directories
+dist/
+dist-ssr/
+*.local
+
+# SQLite Database
+backend/hostel.db
+backend/hostel.db-journal
+
+# Environment variables
+.env
+.env.production
+backend/.env
+frontend/.env
+
+# IDE / System files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
